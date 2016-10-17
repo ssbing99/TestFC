@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLastFiveRecord"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:id="@+id/textViewDateDisplay"
+                android:layout_column="0"
+                android:paddingLeft="15dp"
+                android:paddingRight="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewDate"
+                android:layout_column="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:id="@+id/textViewTimeDisplay"
+                android:layout_column="2"
+                android:layout_gravity="end"
+                android:paddingLeft="15dp"
+                android:paddingRight="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewTime"
+                android:layout_column="3"
+                android:paddingLeft="15dp"
+                android:paddingRight="25dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance: "
+                android:id="@+id/textViewDistanceDisplay"
+                android:layout_column="0"
+                android:paddingLeft="15dp"
+                android:paddingRight="3dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewDistance"
+                android:layout_column="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewDistanceUnit"
+                android:text="km"
+                android:layout_column="2"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time Used: "
+                android:id="@+id/textViewTimeUsedDisplay"
+                android:layout_column="3"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewTimeUsed"
+                android:layout_column="4"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewTimeUsedUnit"
+                android:text="hour(s)"
+                android:layout_column="5"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"/>
+        </TableRow>
+
+
+
+    </TableLayout>
+
+</RelativeLayout>

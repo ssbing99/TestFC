@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.UI.ProfilePage"
+    android:background="@color/MainBackground">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/titleButtonLayout"
+        android:layout_below="@+id/titleBar"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewUserProfile"
+            android:onClick="GoUserProfile"
+            android:clickable="true"
+            android:text="User Profile"
+            android:textSize="20dp"
+            android:textColor="@color/FontColor"
+            android:gravity="center_horizontal"
+            android:background="#7dd2d9"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHealthProfile"
+            android:onClick="GoHealthProfile"
+            android:clickable="true"
+            android:text="Health Profile"
+            android:textSize="20dp"
+            android:textColor="@color/FontColor"
+            android:gravity="center_horizontal"
+            android:background="#bdc4c5"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleButtonLayout"
+        android:layout_marginTop="20dp" />
+
+
+</RelativeLayout>

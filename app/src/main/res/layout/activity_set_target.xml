@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_set_target"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.VirtualRacer.SetTarget">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
+    <TextView
+        android:text="@string/settarget"
+        android:textAlignment="center"
+        android:textSize="@dimen/fontSizeLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/textViewST"
+        android:layout_below="@+id/titleBar" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:id="@+id/horiRuleST1"
+        android:layout_below="@+id/textViewST"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:id="@+id/targetDetails"
+        android:layout_below="@+id/horiRuleST1">
+
+        <TableRow
+            android:paddingBottom="5dp">
+            <TextView
+                android:id="@+id/dispDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distance2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="0"/>
+            <TextView
+                android:text=":"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textStyle="bold"
+                android:layout_margin="1dp"
+                android:layout_column="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+            <EditText
+                android:id="@+id/speedEnter"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_column="2"
+                android:hint="Enter distance"
+                android:inputType="number"
+                android:background="@drawable/rounded_edittext"/>
+            <TextView
+                android:id="@+id/distanceUnitST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distanceunit"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="3"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingBottom="5dp">
+            <TextView
+                android:id="@+id/dispTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="0"/>
+            <TextView
+                android:text=":"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textStyle="bold"
+                android:layout_margin="1dp"
+                android:layout_column="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+            <EditText
+                android:id="@+id/timeEnterHour"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_column="2"
+                android:hint="Enter hour"
+                android:inputType="number"
+                android:background="@drawable/rounded_edittext"/>
+            <TextView
+                android:id="@+id/timeUnitHourST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hour"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="3"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="0"/>
+            <TextView
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+            <EditText
+                android:id="@+id/timeEnterMinute"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_column="2"
+                android:hint="Enter minute"
+                android:inputType="number"
+                android:background="@drawable/rounded_edittext"/>
+            <TextView
+                android:id="@+id/timeUnitMinuteST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minute"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_margin="1dp"
+                android:layout_column="3"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:id="@+id/horiRuleST2"
+        android:layout_below="@+id/targetDetails"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAccept1"
+        android:layout_below="@+id/horiRuleST2"
+        android:text="@string/accept"
+        android:onClick="targetSet"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnReset1"
+        android:layout_below="@+id/btnAccept1"
+        android:text="@string/reset"
+        android:onClick="targetReset"
+        />
+</RelativeLayout>

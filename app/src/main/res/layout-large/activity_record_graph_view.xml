@@ -1,0 +1,366 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/MainBackground">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:paddingBottom="20dp">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/previousDay"
+        android:text="&lt;&lt;"
+        android:onClick="PreviousDayClick"
+        android:hint="Previous Day"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:layout_below="@+id/titleBar"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/previous_day"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DateDisplay"
+        android:textColor="@color/FontColor"
+        android:gravity="center"
+        android:layout_below="@+id/titleBar"
+        android:textSize="@dimen/fontSizeLarge"
+        android:text="2016-02-02"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextDay"
+        android:text=">>"
+        android:onClick="NextDayClick"
+        android:hint="Next Day"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:layout_below="@+id/titleBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/next_day"
+        android:layout_marginTop="20dp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/graph"
+        android:layout_below="@id/previousDay"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/graph"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/TableDetail"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity"
+                android:id="@+id/ActivityTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" :  "
+                android:id="@+id/separator1"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor"
+                android:paddingRight="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/ActivityDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/startTime"
+                android:id="@+id/StartTimeTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" :  "
+                android:id="@+id/separator2"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/StartTimeDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/endTime"
+                android:id="@+id/EndTimeTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:id="@+id/separator3"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/EndTimeDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration"
+                android:id="@+id/DurationTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:id="@+id/separator4"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/DurationDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stepNumber"
+                android:id="@+id/StepTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:id="@+id/separator5"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/StepNumDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calories"
+                android:id="@+id/CaloriesTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" :  "
+                android:id="@+id/separator6"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/CaloriesDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distance"
+                android:id="@+id/DistanceTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" :  "
+                android:id="@+id/separator7"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/DistanceDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AveHR"
+                android:id="@+id/AveHRTxtView"
+                android:layout_column="0"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_gravity="right"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" :  "
+                android:id="@+id/separator8"
+                android:layout_column="1"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/AveHRDisplay"
+                android:layout_column="2"
+                android:textSize="@dimen/fontSizeLarge"
+                android:textColor="@color/FontColor" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/changeView"
+        android:id="@+id/textViewChangeView"
+        android:layout_below="@+id/TableDetail"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@color/ButtonColor"
+        android:clickable="true"
+        android:textColor="@color/ButtonFont"
+        android:textSize="@dimen/fontSizeLarge"
+        android:padding="4dp"
+        android:layout_margin="10dp"
+        android:onClick="changeView" />
+
+</RelativeLayout>
+
+    </ScrollView>

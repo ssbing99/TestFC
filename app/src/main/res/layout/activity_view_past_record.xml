@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_past_record"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.VirtualRacer.ViewPastRecord">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
+    <TextView
+        android:text="@string/pastrecord"
+        android:textAlignment="center"
+        android:textSize="@dimen/fontSizeLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/textViewPR"
+        android:layout_below="@+id/titleBar"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:id="@+id/horiRulePR1"
+        android:layout_below="@+id/textViewPR"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableBestRecord"
+        android:layout_below="@+id/horiRulePR1">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/lightblue">
+            <TextView
+                android:id="@+id/textViewBestRecord"
+                android:text="@string/bestrecord"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </TableRow>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            android:id="@+id/horiRulePR2"/>
+
+        <TableRow android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/brDate"
+                android:text="@string/date"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brDateResult"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brTime"
+                android:text="@string/time"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="70dp"
+                android:layout_column="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brTimeResult"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/brAvgSped"
+                android:text="@string/avgspeed"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brAvgSpeedResult"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brAvgSpedUnit"
+                android:text="@string/speedunit"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/brDistance"
+                android:text="@string/distance"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brDistanceResult"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brDistanceUnit"
+                android:text="@string/distanceunit"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/brTimeUsed"
+                android:text="@string/timeused"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/brTimeUsedResult"
+                android:textSize="@dimen/fontSize"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_column="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            android:id="@+id/horiRulePR3"
+            />
+
+        <TextView
+            android:id="@+id/textViewPast5Record"
+            android:text="@string/past5record"
+            android:textSize="@dimen/fontSize"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:layout_below="@id/horiRulePR3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/lightblue"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            android:id="@+id/horiRulePR4" />
+    </TableLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvLast5Record"
+        android:layout_below="@id/tableBestRecord">
+    </ListView>
+
+
+</RelativeLayout>

@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/MainBackground"
+    tools:context="my.com.taruc.fitnesscompanion.NavigationDrawerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:background="#005b96">
+        <ImageView
+            android:layout_width="500dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/logo_drawer"
+            android:id="@+id/logoDrawer" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPairIChoice"
+        android:layout_below="@id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pair IChoice Device"
+        android:background="@color/MainBackground"
+        android:drawableLeft="@drawable/ichoice_logo"
+        android:textSize="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="150dp"
+        android:paddingRight="150dp" />
+
+    <Button
+        android:id="@+id/btnPairHR"
+        android:layout_below="@id/btnPairIChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pair HeartRate Device"
+        android:background="@color/MainBackground"
+        android:drawableLeft="@drawable/heart_pulse"
+        android:textSize="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="140dp"
+        android:paddingRight="85dp" />
+
+    <Button
+        android:id="@+id/btnVirtualRacer"
+        android:layout_below="@id/btnPairHR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Virtual Racer"
+        android:background="@color/MainBackground"
+        android:drawableLeft="@drawable/virtualracer"
+        android:textSize="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="150dp"
+        android:paddingRight="255dp" />
+
+
+    <Button
+        android:id="@+id/btnCheckHR"
+        android:layout_below="@id/btnVirtualRacer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check Heart Rate"
+        android:background="@color/MainBackground"
+        android:onClick="onButtonCheckHR"
+        android:textSize="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="150dp"
+        android:paddingRight="255dp"  />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_below="@id/btnCheckHR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:textSize="40dp"
+        android:background="@color/MainBackground"
+        android:drawableLeft="@drawable/ic_signout"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="145dp"
+        android:paddingRight="370dp"/>
+
+
+
+
+</RelativeLayout>

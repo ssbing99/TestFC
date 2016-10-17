@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/MainBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="5dp"
+        >
+        <TextView
+            android:id="@+id/tv_ranking"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:text="1"
+            android:textColor="@color/ButtonFont"
+            android:textSize="@dimen/fontSizeSmall"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/circle_icon_background"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tan Sai Boon"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:textColor="@color/FontColor"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tv_ranking"
+            android:layout_toEndOf="@+id/tv_ranking"
+            android:textSize="8dp" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000 Points"
+            android:textColor="@color/FontColor"
+            android:layout_below="@+id/tv_name"
+            android:layout_alignLeft="@+id/tv_name"
+            android:textSize="8dp" />
+
+        <Button
+            android:id="@+id/challenge"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:text="Challenge"
+            android:textSize="8dp"
+            android:textColor="@color/ButtonFont"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_ranking"
+            android:background="@color/ButtonColor"
+            android:layout_marginRight="3dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_below="@+id/tv_point"
+        />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="transparent" type="color">#00FFFFFF</item>
+    <item name="grey" type="color">#555555</item>
+    <item name="green" type="color">#4499CC00</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="highlightcolor" type="color">#B6B6B6B6</item>
+    <item name="white" type="color">#FAFAFA</item>
+    <item name="red" type="color">#FF0000</item>
+    <item name="black" type="color">#000000</item>
+    <item name="orange" type="color">#eb8c00</item>
+
+    <item name="MainBackground" type="color">#ececec</item>
+    <item name="MainBackground2" type="color">#d8f1f3</item>
+    <item name="SubBackground" type="color">#d8f1f3</item>
+    <item name="LoginBackground" type="color">#3e243c</item>
+
+    <item name="FontColor" type="color">#000000</item>
+    <item name="ThemeFontColor" type="color">#032841</item>
+    <item name="LoginFontColor" type="color">#bdc4c5</item>
+    <item name="GreyFontColor" type="color">#9a9a9a</item>
+    <item name="SubFontColor" type="color">#000000</item>
+    <item name="TitleBar" type="color">#032841</item>
+
+    <item name="ButtonColor" type="color">#d8ebff</item>
+    <item name="ButtonColor2" type="color">#2b4372</item>
+    <item name="ButtonColor3" type="color">#7dd2d9</item>
+    <item name="ButtonFont" type="color">#243c3e</item>
+    <item name="HorizontalLine" type="color">#8999A9</item>
+    <item name="DisableColor" type="color">#8999A9</item>
+
+    <item name="loginIconBackground" type="color">#ff535b75</item>
+
+    <item name="heartRateLow" type="color">#FFF3AA00</item>
+    <item name="heartRateHigh" type="color">#FFFF0000</item>
+    <item name="heartRateNormal" type="color">#FF669900</item>
+
+    <color name="middarkblue">#2b4372</color>
+    <color name="lightblue">#7dd2d9</color>
+
+</resources>
