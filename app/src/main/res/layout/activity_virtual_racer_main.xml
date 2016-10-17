@@ -196,7 +196,6 @@
         android:textColor="@color/ThemeFontColor"
         android:layout_below="@+id/framelayout" />
 
-
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

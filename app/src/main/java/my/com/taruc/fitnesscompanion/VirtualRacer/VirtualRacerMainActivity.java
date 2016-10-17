@@ -165,6 +165,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         // Initialize Distance UI
         txtDistance.setText("--");
 
+
         ////////////////////////////////////////////////////////////////VR
         animImage = (ImageView)findViewById(R.id.stickman);
         animImage.setBackgroundResource(R.drawable.run);
