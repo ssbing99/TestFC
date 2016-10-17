@@ -568,4 +568,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
 
     }
+
+    public void test(){
+        String message = "Hello World";
+    }
 }
