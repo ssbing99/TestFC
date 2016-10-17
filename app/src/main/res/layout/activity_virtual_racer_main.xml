@@ -196,17 +196,7 @@
         android:textColor="@color/ThemeFontColor"
         android:layout_below="@+id/framelayout" />
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/CountDownTimer"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:textSize="60dp"
-        android:textIsSelectable="false"
-        android:textColor="@color/ThemeFontColor"
-        android:layout_alignTop="@+id/chronometerTimer"
-        android:text="00:00" />
+
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
