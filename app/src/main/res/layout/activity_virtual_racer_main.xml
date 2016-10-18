@@ -212,7 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/speed"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="0"/>
             <TextView
@@ -220,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="test"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="1"/>
             <TextView
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/speedunit"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="2"
                 android:paddingLeft="3dp"
@@ -247,8 +247,8 @@
                 android:id="@+id/currentDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/distance"
-                android:textSize="@dimen/fontSize"
+                android:text="@string/distanceVR"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="4"
                 android:paddingLeft="5dp" />
@@ -257,7 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="test"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="5"/>
             <TextView
@@ -265,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/distanceunit"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="6"
                 android:paddingLeft="3dp"
@@ -285,7 +285,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="8"
                 android:paddingLeft="5dp" />
@@ -294,7 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="test"
-                android:textSize="@dimen/fontSize"
+                android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="9"/>
         </TableRow>
@@ -306,13 +306,14 @@
         android:background="#000000"
         android:id="@+id/viewHoriRule5"
         android:layout_below="@+id/tableLiveDetails"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/warmUp"
         android:layout_below="@+id/viewHoriRule5"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textColor="@android:color/holo_blue_dark"
         android:id="@+id/TextViewStage"
         android:layout_margin="10dp" />

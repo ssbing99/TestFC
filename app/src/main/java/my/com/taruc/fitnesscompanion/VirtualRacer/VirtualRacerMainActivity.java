@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.animation.ObjectAnimator;
@@ -16,6 +17,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.animation.LinearInterpolator;
 import android.provider.ContactsContract;
@@ -38,6 +40,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
 import my.com.taruc.fitnesscompanion.Classes.CountDownTimerWithPause;
@@ -98,14 +101,14 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     boolean HRStripExist = false;
 
     //Distance sensor
-    MyLocationListener myLocationListener = new MyLocationListener();
     Intent intentDistance;
     boolean isChoice = false;
     Location location;
+    MyLocationListener myLocationListener = new MyLocationListener();
     protected LocationManager locationManager;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
-    double plat, plon, clat, clon, dis, initial_dis=0, total_dis=0;
+    double plat, plon, clat, clon, dis, initial_dis = 0, total_dis = 0;
     boolean isGPSEnable = false;
     boolean isNetworkEnable = false;
 
@@ -129,11 +132,16 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     TextView TextViewStage;
     @BindView(R.id.currentDistanceResult)
     TextView txtDistance;
+    @BindView(R.id.currentSpeedResult)
+    TextView txtSpeed;
 
     ValueAnimator bg;
     AnimationDrawable animDraw;
     ImageView animImage;
-    ImageView vr1,vr2;
+    ImageView vr1, vr2;
+
+    LocationManager locManager;
+    LocationListener locListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,30 +153,33 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         btnSetChallenge.setOnClickListener(this);
         btnViewPastRecord.setOnClickListener(this);
 
-        String dis,hour,min;
+        String dis, hour, min;
         dis = getIntent().getStringExtra("Distance");
         hour = getIntent().getStringExtra("Hour");
         min = getIntent().getStringExtra("Min");
 
-        if(dis==null){
-            dis="0";
+        if (dis == null) {
+            dis = "0";
         }
-        if(hour == null){
-            hour="0";
+        if (hour == null) {
+            hour = "0";
         }
-        if(min == null || min.contains("")){
-            min="00";
+        if (min == null || min.contains("")) {
+            min = "00";
         }
 
-            distanceAmt.setText(dis+" distances");
-            durationAmt.setText(hour+"hour "+min+"mins");
+        distanceAmt.setText(dis + " distances");
+        durationAmt.setText(hour + "hour " + min + "mins");
 
         // Initialize Distance UI
         txtDistance.setText("--");
 
+        //Initialize Speed UI
+        txtSpeed.setText("--");
+
 
         ////////////////////////////////////////////////////////////////VR
-        animImage = (ImageView)findViewById(R.id.stickman);
+        animImage = (ImageView) findViewById(R.id.stickman);
         animImage.setBackgroundResource(R.drawable.run);
         animDraw = (AnimationDrawable) animImage.getBackground();
 
@@ -176,7 +187,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         vr2 = (ImageView) findViewById(R.id.imageVR2);
 
         //BACKGROUND
-        bg = ObjectAnimator.ofFloat(1.0f,-0.1f);
+        bg = ObjectAnimator.ofFloat(1.0f, -0.1f);
         bg.setRepeatCount(ValueAnimator.INFINITE);
         bg.setInterpolator(new LinearInterpolator());
         bg.setDuration(10000L);
@@ -187,16 +198,33 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 float progress = (float) animation.getAnimatedValue();
                 float width = vr1.getWidth();
                 float translationX = width * progress;
-                vr1.setTranslationX(translationX-width);
-                vr2.setTranslationX(translationX-width);
+                vr1.setTranslationX(translationX - width);
+                vr2.setTranslationX(translationX - width);
             }
         });
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                myLocationListener
+        );
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!isGPSEnable && !isNetworkEnable) {
+            showGPSSettingsAlert();
+        }
+        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(StepManager.BROADCAST_ACTION_2));
+        displayDistance(null);
+
+
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         Intent intent;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btnSetTarget:
                 intent = new Intent(this, SetTarget.class);
                 startActivity(intent);
@@ -215,6 +243,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
     public void buttonStart(View view) {
         String txt = ViewStart.getText().toString();
+        Intent intent = new Intent();
         if (isChallenge) {
             if (txt.equalsIgnoreCase("Start")) {
                 txtDistance.setText(String.format("%.2f", total_dis));
@@ -236,7 +265,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 startTimer();
                 bg.start();
                 animDraw.start();
-                //txtDistance.setTextColor(Color.WHITE);
                 ViewStart.setText(R.string.next);
             } else if (txt.equalsIgnoreCase("Next")) {
                 /*************Start Exercise*************/
@@ -247,6 +275,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
                 startTimer();
                 isStartedExerise = true;
+                txtDistance.setText(Double.toString(displayDistance(intent)));
+                txtSpeed.setText(Double.toString(getSpeed()));
                 ViewStart.setText(R.string.stop);
             } else if (txt.equalsIgnoreCase("Stop")) {
                 /*************Start Cool Down*************/
@@ -326,7 +356,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             message = "You challenge is fail!";
             resID = R.raw.smash_fail;
         }
-        alarmSound.playRaw(this, resID , false);
+        alarmSound.playRaw(this, resID, false);
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle("Time up!")
                 .setMessage(message)
@@ -386,7 +416,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         myChronometer.stop();
         timerRunning = false;
         String message = "Confirm stop fitness activity now?";
-        if (getDuration() < 120){ //&& activityPlan.getDuration() >= 2) {
+        if (getDuration() < 120) { //&& activityPlan.getDuration() >= 2) {
             message = "If is more effective to do this exercise for at least 2 minutes. Are you sure you want to stop here?";
         }
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -456,6 +486,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             }
         }
     }
+
     /*********************************************************************************************
      * Insert Fitness Record
      ********************************************************************************************/
@@ -498,16 +529,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         String formattedTime = df.format(c.getTime());
         String formattedDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
         return formattedDate + " " + formattedTime;
-    }
-
-    public double getDistance() {
-        //get Distance
-        String[] distanceString = txtDistance.getText().toString().split("m");
-        double distanceAmount = 0.0;
-        if (!distanceString[0].trim().equals("--")) {
-            distanceAmount = Double.parseDouble(distanceString[0].trim());
-        }
-        return distanceAmount;
     }
 
     public int getDuration() {
@@ -556,26 +577,59 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
     //Calculate Distance
 
-    private class MyLocationListener implements LocationListener {
+    private BroadcastReceiver DistanceBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            displayDistance(intent);
+        }
+    };
 
-        public void onLocationChanged(Location location) {
-            String message = String.format("New Location \n Longitude: %1$s \n Latitude: %2$s",
-                    location.getLongitude(), location.getLatitude()
-            );
-            Log.i("Virtual Racer-Location", message);
+    public double displayDistance(Intent intent) {
+        showCurrentLocation();
+        if (location != null) {
+            clat = location.getLatitude();
+            clon = location.getLongitude();
+            if (clat != plat || clon != plon) {
+                dis += calDistance(plat, plon, clat, clon);
+                plat = clat;
+                plon = clon;
+                if (isStartedExerise && !(initial_dis == 0)) {
+                    total_dis = dis - initial_dis;
+                    txtDistance.setText(String.format("%.2f", total_dis));
+                } else {
+                    //set initial Distance
+                    initial_dis = dis;
+                }
+                Log.i("Virtual Racer-Location", "Display distance " + dis + " " + isStartedExerise);
+            }
+        } else {
+            Log.i("Virtual Racer-Location", "Location is null.");
         }
 
-        public void onStatusChanged(String s, int i, Bundle b) {
-            Log.i("Virtual Racer-Location", "Provider status changed");
-        }
+        return total_dis;
+    }
 
-        public void onProviderDisabled(String s) {
-            Log.i("Virtual Racer-Location", "Provider disabled by the user. GPS turned off");
-        }
+    public double calDistance(double lat1, double lon1, double lat2, double lon2) {
+        //The Haversine formula
+        double latA = Math.toRadians(lat1);
+        double lonA = Math.toRadians(lon1);
+        double latB = Math.toRadians(lat2);
+        double lonB = Math.toRadians(lon2);
+        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB - lonA)) +
+                (Math.sin(latA) * Math.sin(latB));
+        double ang = Math.acos(cosAng);
+        double dist = ang * 6371;
+        return dist;
+    }
 
-        public void onProviderEnabled(String s) {
-            Log.i("Virtual Racer-Location", "Provider enabled by the user. GPS turned on");
+    public double getDistance() {
+        //get Distance
+        String[] distanceString = txtDistance.getText().toString().split("m");
+        double distanceAmount = 0.0;
+        if (!distanceString[0].trim().equals("--")) {
+            distanceAmount = Double.parseDouble(distanceString[0].trim());
         }
+        return distanceAmount;
     }
 
     protected void showCurrentLocation() {
@@ -616,46 +670,55 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
     }
 
-    public double calDistance(double lat1, double lon1, double lat2, double lon2) {
-        //The Haversine formula
-        double latA = Math.toRadians(lat1);
-        double lonA = Math.toRadians(lon1);
-        double latB = Math.toRadians(lat2);
-        double lonB = Math.toRadians(lon2);
-        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB - lonA)) +
-                (Math.sin(latA) * Math.sin(latB));
-        double ang = Math.acos(cosAng);
-        double dist = ang * 6371;
-        return dist;
+    public void showGPSSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("GPS is OFF");
+        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
-    public void displayDistance(Intent intent) {
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            String message = String.format("New Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude()
+            );
+            Log.i("Virtual Racer-Location", message);
+        }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+            Log.i("Virtual Racer-Location", "Provider status changed");
+        }
+
+        public void onProviderDisabled(String s) {
+            Log.i("Virtual Racer-Location", "Provider disabled by the user. GPS turned off");
+        }
+
+        public void onProviderEnabled(String s) {
+            Log.i("Virtual Racer-Location", "Provider enabled by the user. GPS turned on");
+        }
+    }
+
+    public double getSpeed() {
+        double speed = 0;
+
         showCurrentLocation();
         if (location != null) {
-            clat = location.getLatitude();
-            clon = location.getLongitude();
-            if (clat != plat || clon != plon) {
-                dis += calDistance(plat, plon, clat, clon);
-                plat = clat;
-                plon = clon;
-                if (isStartedExerise && !(initial_dis==0)) {
-                    total_dis = dis - initial_dis;
-                    txtDistance.setText(String.format("%.2f", total_dis));
-                } else {
-                    //set initial Distance
-                    initial_dis = dis;
-                }
-                Log.i("Virtual Racer-Location","Display distance "+ dis + " " + isStartedExerise);
-            }
-        } else {
-            Log.i("Virtual Racer-Location", "Location is null.");
+            speed = location.getSpeed();
         }
+        return speed;
     }
-
-    private BroadcastReceiver DistanceBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            displayDistance(intent);
-        }
-    };
 }
