@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.R;
 
 /**
@@ -18,10 +19,10 @@ import my.com.taruc.fitnesscompanion.R;
 
 public class UserLastFiveRecordAdapter extends ArrayAdapter {
 
-    List<UserLastFiveRecord> list;
+    List<VirtualRacer> list;
     Activity context;
 
-    public UserLastFiveRecordAdapter (Activity context, List<UserLastFiveRecord> l) {
+    public UserLastFiveRecordAdapter (Activity context, List<VirtualRacer> l) {
         super(context, R.layout.user_lastfiverecord_layout, l);
         this.list = l;
         this.context = context;
@@ -41,10 +42,10 @@ public class UserLastFiveRecordAdapter extends ArrayAdapter {
         textViewDistance = (TextView) rowView.findViewById(R.id.textViewDistance);
         textViewTimeUsed = (TextView) rowView.findViewById(R.id.textViewTimeUsed);
 
-        textViewDate.setText(list.get(position).getDate());
-        textViewTime.setText(list.get(position).getTime());
+        textViewDate.setText(list.get(position).getCreatedAt().toString());
+        //textViewTime.setText(list.get(position).getTime());
         textViewDistance.setText(list.get(position).getDistance());
-        textViewTimeUsed.setText(list.get(position).getTimeused());
+        textViewTimeUsed.setText(list.get(position).getDuration());
 
         return rowView;
     }

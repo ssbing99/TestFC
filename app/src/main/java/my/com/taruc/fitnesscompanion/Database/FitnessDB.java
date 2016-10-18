@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import my.com.taruc.fitnesscompanion.Util.Constant;
 
 public class FitnessDB extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "FitnessDataBase";
+    private static final String DATABASE_NAME = "FitnessDb";
     private static final int DATABASE_VERSION = Constant.DB_Version;
     private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
@@ -173,17 +173,30 @@ public class FitnessDB extends SQLiteOpenHelper {
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
-    private static final String dropTableUserProfile = "DROP TABLE User IF EXISTS";
-    private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
-    private static final String dropTableGoal = "DROP TABLE Goal IF EXISTS";
-    private static final String dropTableRecord = "DROP TABLE Fitness_Record IF EXISTS";
-    private static final String dropTableReminder = "DROP TABLE Reminder IF EXISTS";
-    private static final String dropTableAchievement = "DROP TABLE Achievement IF EXISTS";
-    private static final String dropTableRealTimeFitness = "DROP TABLE RealTime_Fitness IF EXISTS";
-    private static final String dropTableActivityPlans = "DROP TABLE Activity_Plan IF EXISTS";
-    private static final String dropTableRanking = "DROP TABLE Ranking IF EXISTS";
-    private static final String dropTableEvent = "DROP TABLE Event IF EXISTS";
-    private static final String dropTableSleepData = "DROP TABLE Sleep_Data IF EXISTS";
+    private static final String queryCreateVRRecord = "CREATE TABLE VR_Record(" +
+            "id VARCHAR(30)," +
+            "user_id VARCHAR(255)," +
+            "duration INTEGER," +  // in sec
+            "distance INTEGER," + //CHANGE AT 24/7/2015 , in meter
+            "speed INTEGER," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "PRIMARY KEY (id, user_id)," +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
+            ");";
+
+    private static final String dropTableUserProfile = "DROP TABLE IF EXISTS User ";
+    private static final String dropTableHealthProfile = "DROP TABLE IF EXISTS Health_Profile ";
+    private static final String dropTableGoal = "DROP TABLE IF EXISTS Goal ";
+    private static final String dropTableRecord = "DROP TABLE IF EXISTS Fitness_Record ";
+    private static final String dropTableReminder = "DROP TABLE IF EXISTS Reminder ";
+    private static final String dropTableAchievement = "DROP TABLE IF EXISTS Achievement ";
+    private static final String dropTableRealTimeFitness = "DROP TABLE IF EXISTS RealTime_Fitness ";
+    private static final String dropTableActivityPlans = "DROP TABLE IF EXISTS Activity_Plan ";
+    private static final String dropTableRanking = "DROP TABLE IF EXISTS Ranking ";
+    private static final String dropTableEvent = "DROP TABLE IF EXISTS Event ";
+    private static final String dropTableSleepData = "DROP TABLE IF EXISTS Sleep_Data ";
+    private static final String dropTableVRRecord = "DROP TABLE IF EXISTS VR_Record ";
 
     private Context context;
     private Boolean result;
@@ -197,7 +210,7 @@ public class FitnessDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
+            db.execSQL(queryCreateVRRecord);
             db.execSQL(queryCreateUserProfile);
             db.execSQL(queryCreateHealthProfile);
             db.execSQL(queryCreateActivityPlans);
@@ -210,9 +223,6 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateEvent);
             db.execSQL(queryCreateSleepData);
             result = doesDatabaseExist(context, DATABASE_NAME);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
