@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -146,7 +147,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
         String dis,hour,min;
         dis = getIntent().getStringExtra("Distance");
-        hour=getIntent().getStringExtra("Hour");
+        hour = getIntent().getStringExtra("Hour");
         min = getIntent().getStringExtra("Min");
 
         if(dis==null){
@@ -211,6 +212,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
 
     }
+
     public void buttonStart(View view) {
         String txt = ViewStart.getText().toString();
         if (isChallenge) {
@@ -262,6 +264,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             }
         }
     }
+
     //////////////////////////////////////COUNT DOWN
 
     public void startCountDownTimer() {
@@ -359,7 +362,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
     }
 
-
     public void startTimer() {
         //start count time
         int stoppedMilliseconds = 0;
@@ -419,6 +421,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         int stoppedMilliseconds = 0;
         myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
     }
+
     private class TickListener implements Chronometer.OnChronometerTickListener {
         private int hour;
         private int min;
@@ -551,26 +554,108 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     }
 
 
+    //Calculate Distance
+
     private class MyLocationListener implements LocationListener {
 
         public void onLocationChanged(Location location) {
             String message = String.format("New Location \n Longitude: %1$s \n Latitude: %2$s",
                     location.getLongitude(), location.getLatitude()
             );
-            Log.i("ExercisePage-Location", message);
+            Log.i("Virtual Racer-Location", message);
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
-            Log.i("ExercisePage-Location", "Provider status changed");
+            Log.i("Virtual Racer-Location", "Provider status changed");
         }
 
         public void onProviderDisabled(String s) {
-            Log.i("ExercisePage-Location", "Provider disabled by the user. GPS turned off");
+            Log.i("Virtual Racer-Location", "Provider disabled by the user. GPS turned off");
         }
 
         public void onProviderEnabled(String s) {
-            Log.i("ExercisePage-Location", "Provider enabled by the user. GPS turned on");
+            Log.i("Virtual Racer-Location", "Provider enabled by the user. GPS turned on");
         }
-
     }
+
+    protected void showCurrentLocation() {
+
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!isGPSEnable && !isNetworkEnable) {
+            Toast.makeText(this, "Unable to retrieve GPS. Please check your network or GPS.", Toast.LENGTH_LONG).show();
+        } else {
+            if (isNetworkEnable) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES,
+                        MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, myLocationListener);
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        clat = location.getLatitude();
+                        clon = location.getLongitude();
+                    }
+                }
+            }
+
+            if (isGPSEnable) {
+                if (location == null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                            MINIMUM_TIME_BETWEEN_UPDATES,
+                            MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                            myLocationListener);
+                    if (locationManager != null) {
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (location != null) {
+                            clat = location.getLatitude();
+                            clon = location.getLongitude();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public double calDistance(double lat1, double lon1, double lat2, double lon2) {
+        //The Haversine formula
+        double latA = Math.toRadians(lat1);
+        double lonA = Math.toRadians(lon1);
+        double latB = Math.toRadians(lat2);
+        double lonB = Math.toRadians(lon2);
+        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB - lonA)) +
+                (Math.sin(latA) * Math.sin(latB));
+        double ang = Math.acos(cosAng);
+        double dist = ang * 6371;
+        return dist;
+    }
+
+    public void displayDistance(Intent intent) {
+        showCurrentLocation();
+        if (location != null) {
+            clat = location.getLatitude();
+            clon = location.getLongitude();
+            if (clat != plat || clon != plon) {
+                dis += calDistance(plat, plon, clat, clon);
+                plat = clat;
+                plon = clon;
+                if (isStartedExerise && !(initial_dis==0)) {
+                    total_dis = dis - initial_dis;
+                    txtDistance.setText(String.format("%.2f", total_dis));
+                } else {
+                    //set initial Distance
+                    initial_dis = dis;
+                }
+                Log.i("Virtual Racer-Location","Display distance "+ dis + " " + isStartedExerise);
+            }
+        } else {
+            Log.i("Virtual Racer-Location", "Location is null.");
+        }
+    }
+
+    private BroadcastReceiver DistanceBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            displayDistance(intent);
+        }
+    };
 }
