@@ -3,6 +3,8 @@ package my.com.taruc.fitnesscompanion.VirtualRacer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +18,12 @@ import java.util.List;
 import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.VirtualRacer.UserLastFiveRecordAdapter;
 
 public class ViewPastRecord extends ActionBarActivity {
-    ListView listView;
+    RecyclerView recyclerView;
     private VRRecordDA vrRecordDA;
-
+    UserLastFiveRecordAdapter listAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +32,18 @@ public class ViewPastRecord extends ActionBarActivity {
         vrRecordDA = new VRRecordDA(this);
 //        vrRecordDA.open();
         final List<VirtualRacer> vrRecordList = vrRecordDA.getAllVRRecord();
-        if(vrRecordList!=null) {
-            UserLastFiveRecordAdapter listAdapter = new UserLastFiveRecordAdapter(this, vrRecordList);
+        recyclerView = (RecyclerView)findViewById(R.id.lvLast5Record);
+        listAdapter = new UserLastFiveRecordAdapter(getApplicationContext(), vrRecordList,this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(listAdapter);
+        /*
+
             listView = (ListView) findViewById(R.id.lvLast5Record);
             listView.setAdapter(listAdapter);
-        }else
-            Toast.makeText(this,"Is empty",Toast.LENGTH_SHORT).show();
+        */
+        //    Toast.makeText(this,"Is empty",Toast.LENGTH_SHORT).show();
 
 
     }
@@ -57,4 +66,8 @@ public class ViewPastRecord extends ActionBarActivity {
         return view;
     }
     */
+
+    public void BackAction(View view) {
+        this.finish();
+    }
 }

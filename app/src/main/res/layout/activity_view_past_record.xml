@@ -216,12 +216,12 @@
             android:id="@+id/horiRulePR4" />
     </TableLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lvLast5Record"
         android:layout_below="@id/tableBestRecord">
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>

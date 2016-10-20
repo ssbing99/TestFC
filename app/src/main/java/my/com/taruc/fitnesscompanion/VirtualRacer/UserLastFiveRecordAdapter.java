@@ -2,6 +2,8 @@ package my.com.taruc.fitnesscompanion.VirtualRacer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,54 @@ import my.com.taruc.fitnesscompanion.R;
  * Created by user on 6/10/2016.
  */
 
-public class UserLastFiveRecordAdapter extends ArrayAdapter {
-
+public class UserLastFiveRecordAdapter extends RecyclerView.Adapter<UserLastFiveRecordAdapter.MyAdapter> {
+    LayoutInflater inflater;
     List<VirtualRacer> list;
-    Activity context;
+    Activity activity;
+    Context context;
 
+
+    public UserLastFiveRecordAdapter (Context context, List<VirtualRacer> list, Activity activity){
+        inflater = LayoutInflater.from(context);
+        this.list = list;
+        this.context = context;
+        this.activity = activity;
+    }
+
+    @Override
+    public MyAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rowView = inflater.inflate(R.layout.user_lastfiverecord_layout, parent, false);
+        MyAdapter viewHolder = new MyAdapter(rowView);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(MyAdapter holder, int position) {
+        VirtualRacer vracer = list.get(position);
+        holder.textViewDate.setText(vracer.getCreatedAt().toString());
+        //textViewTime.setText(list.get(position).getTime());
+        holder.textViewDistance.setText(Integer.toString(vracer.getDistance()));
+        holder.textViewTimeUsed.setText(Integer.toString(vracer.getDuration()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    class MyAdapter extends RecyclerView.ViewHolder{
+        TextView textViewDate, textViewTime, textViewDistance, textViewTimeUsed;
+
+        public MyAdapter (View view){
+            super(view);
+            textViewDate = (TextView) view.findViewById(R.id.textViewDate);
+            textViewTime = (TextView) view.findViewById(R.id.textViewTime);
+            textViewDistance = (TextView) view.findViewById(R.id.textViewDistance);
+            textViewTimeUsed = (TextView) view.findViewById(R.id.textViewTimeUsed);
+        }
+    }
+
+    /*
     public UserLastFiveRecordAdapter (Activity context, List<VirtualRacer> l) {
         super(context, R.layout.user_lastfiverecord_layout, l);
         this.list = l;
@@ -49,4 +94,5 @@ public class UserLastFiveRecordAdapter extends ArrayAdapter {
 
         return rowView;
     }
+    */
 }

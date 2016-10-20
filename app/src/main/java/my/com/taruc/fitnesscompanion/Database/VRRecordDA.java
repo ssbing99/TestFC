@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class VRRecordDA {
     private Context context;
     FitnessDB fitnessDB;
     SQLiteDatabase database;
-
+int count =0;
     private  String TABLE_NAME = "VR_Record";
     private String columnID = "id";
     private String columnUserID = "user_id";
@@ -47,11 +48,36 @@ public class VRRecordDA {
         //database = dbHelper.getWritableDatabase();
     }
 
-    public List<VirtualRacer> getAllVRRecord() {
+    public boolean insertRecord(VirtualRacer vracer){
+        ContentValues values = new ContentValues();
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        List<VirtualRacer> records = new ArrayList<VirtualRacer>();
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        long date = System.currentTimeMillis();
+        boolean success = false;
+        try {
+            values.put(columnID, vracer.getId());
+            values.put(columnUserID, vracer.getUserID());
+            values.put(columnDistance, vracer.getDistance());
+            values.put(columnDuration, vracer.getDuration());
+            values.put(columnSpeed, vracer.getSpeed());
+            values.put(columnCreatedAt, vracer.getCreatedAt().getDateTimeString());//format.format(date)
+            values.put(columnUpdatedAt, vracer.getUpdatedAt().getDateTimeString());
+            db.insert(TABLE_NAME, null, values);
+            success = true;
+            Toast.makeText(context,"Inserting to DB", Toast.LENGTH_SHORT).show();
+        }catch (SQLException e){
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return success;
+    }
 
+    public ArrayList<VirtualRacer> getAllVRRecord() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<VirtualRacer> records = new ArrayList<VirtualRacer>();
+        int count1=0;
         //String sql = "SELECT * FROM "
 
             try {
@@ -59,6 +85,7 @@ public class VRRecordDA {
                 cursor.moveToFirst();
 
                 while (!cursor.isAfterLast()) {
+                    count1++;
                     VirtualRacer vrRecord = new VirtualRacer();
                     vrRecord.setId(cursor.getString(0));
                     vrRecord.setUserID(cursor.getString(1));
@@ -70,6 +97,7 @@ public class VRRecordDA {
                     records.add(vrRecord);
                     cursor.moveToNext();
                 }
+                Toast.makeText(context, "NO: "+count1,Toast.LENGTH_SHORT).show();
                 cursor.close();
             } catch (SQLException e) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
