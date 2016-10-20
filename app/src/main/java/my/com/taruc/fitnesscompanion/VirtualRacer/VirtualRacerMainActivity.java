@@ -50,9 +50,11 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Duration;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
+import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Classes.Set;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
@@ -63,13 +65,13 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class VirtualRacerMainActivity extends Activity implements View.OnClickListener, GPSCallback {
     Context context;
-    private FitnessRecordDA myFitnessRecordDA;
+    private VRRecordDA vrRecordDA;
     private ActivityPlanDA myActivityPlanDA;
     private ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
     private UserLocalStore userLocalStore;
     private ServerRequests serverRequests;
     private RetrieveRequest mRetreiveRequests;
-    private FitnessRecord fitnessRecord;
+    private VirtualRacer vrrecord;
     private ActivityPlan activityPlan;
     double totalHR = 0.0;
     static int HRno = 0;
@@ -150,6 +152,9 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_racer_main);
         ButterKnife.bind(this);
+        context=this;
+        vrRecordDA = new VRRecordDA(this);
+        userLocalStore = new UserLocalStore(this);
 
         btnSetTarget.setOnClickListener(this);
         btnSetChallenge.setOnClickListener(this);
@@ -437,6 +442,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                         startTimer();
                         ViewStart.setText(R.string.end);
                         total_dis = 0;
+                        addVRRecord();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -493,6 +499,28 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     /*********************************************************************************************
      * Insert Fitness Record
      ********************************************************************************************/
+    public void addVRRecord(){
+        String currentDateTime = getCurrentDateTime();
+        double distance = getDistance();
+        int duration = getDuration();
+        int speed = 10;
+
+        vrrecord = new VirtualRacer();
+        vrrecord.setId(vrRecordDA.generateNewVRRecordID());
+        vrrecord.setUserID(Integer.toString(userLocalStore.returnUserID()));
+        vrrecord.setDuration(duration);
+        vrrecord.setDistance(distance);
+        vrrecord.setSpeed(speed);
+        vrrecord.setCreatedAt(new DateTime(currentDateTime));
+        vrrecord.setUpdatedAt(new DateTime(currentDateTime));
+
+        boolean success = vrRecordDA.insertRecord(vrrecord);
+        if(success==true){
+            Toast.makeText(this, "Insert Complete", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
+        }
+    }
 /*
     public void addFitnessRecord() {
         try {
@@ -737,5 +765,9 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
         return value;
     }
+
+    public void BackAction(View view) {
+        this.finish();
+     }
 
 }

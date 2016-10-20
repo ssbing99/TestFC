@@ -176,8 +176,8 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String queryCreateVRRecord = "CREATE TABLE VR_Record(" +
             "id VARCHAR(30)," +
             "user_id VARCHAR(255)," +
-            "duration INTEGER," +  // in sec
-            "distance INTEGER," + //CHANGE AT 24/7/2015 , in meter
+            "duration DOUBLE," +  // in sec
+            "distance DOUBLE," + //CHANGE AT 24/7/2015 , in meter
             "speed INTEGER," +
             "created_at DATETIME," +
             "updated_at DATETIME," +

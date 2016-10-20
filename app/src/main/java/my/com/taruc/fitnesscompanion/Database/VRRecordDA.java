@@ -85,24 +85,107 @@ int count =0;
                 cursor.moveToFirst();
 
                 while (!cursor.isAfterLast()) {
-                    count1++;
+                    count++;
                     VirtualRacer vrRecord = new VirtualRacer();
                     vrRecord.setId(cursor.getString(0));
                     vrRecord.setUserID(cursor.getString(1));
-                    vrRecord.setDuration(Integer.parseInt(cursor.getString(2)));
-                    vrRecord.setDistance(Integer.parseInt(cursor.getString(3)));
+                    vrRecord.setDuration(Double.parseDouble(cursor.getString(2)));
+                    vrRecord.setDistance(Double.parseDouble(cursor.getString(3)));
                     vrRecord.setSpeed(Integer.parseInt(cursor.getString(4)));
                     vrRecord.setCreatedAt(new DateTime(cursor.getString(5)));
                     vrRecord.setUpdatedAt(new DateTime(cursor.getString(6)));
                     records.add(vrRecord);
                     cursor.moveToNext();
                 }
-                Toast.makeText(context, "NO: "+count1,Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "NO: "+count,Toast.LENGTH_SHORT).show();
                 cursor.close();
             } catch (SQLException e) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             }
 
         return records;
+    }
+
+    ////////////////////////////////////////////////////
+    public VirtualRacer getLastFitnessRecord() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        VirtualRacer myVRRecord= new VirtualRacer();
+        String getquery = "SELECT "+ allColumn+" FROM "+ TABLE_NAME+" ORDER BY "+ columnCreatedAt+" DESC LIMIT 1";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                myVRRecord = new VirtualRacer();
+                myVRRecord.setId(c.getString(0));
+                myVRRecord.setUserID(c.getString(1));
+                myVRRecord.setDuration(Integer.parseInt(c.getString(2)));
+                myVRRecord.setDistance(Integer.parseInt(c.getString(3)));
+                myVRRecord.setSpeed(Integer.parseInt(c.getString(4)));
+                myVRRecord.setCreatedAt(new DateTime(c.getString(5)));
+                myVRRecord.setUpdatedAt(new DateTime(c.getString(6)));
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return myVRRecord;
+    }
+    public int getCountVRRecord() {
+        int count2=0;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        VirtualRacer myVRRecord= new VirtualRacer();
+        String getquery = "SELECT "+ allColumn+" FROM "+ TABLE_NAME+" ORDER BY "+ columnCreatedAt+" DESC";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                count2++;
+                myVRRecord = new VirtualRacer();
+                myVRRecord.setId(c.getString(0));
+                myVRRecord.setUserID(c.getString(1));
+                myVRRecord.setDuration(Integer.parseInt(c.getString(2)));
+                myVRRecord.setDistance(Integer.parseInt(c.getString(3)));
+                myVRRecord.setSpeed(Integer.parseInt(c.getString(4)));
+                myVRRecord.setCreatedAt(new DateTime(c.getString(5)));
+                myVRRecord.setUpdatedAt(new DateTime(c.getString(6)));
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count2;
+    }
+    public String generateNewVRRecordID(){
+        String newVRRecordID="";
+        VirtualRacer lastVRRecord;
+        int checkCount=0;
+        Calendar c = Calendar.getInstance();
+        String myDate = c.get(Calendar.DATE) + "/"+ (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
+        SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateObj = new Date();
+        try {
+            dateObj = curFormater.parse(myDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        String formattedDate = df.format(dateObj); //current date
+
+        try {
+            getAllVRRecord();
+            //checkCount=getCountVRRecord();//lastVRRecord = getLastFitnessRecord();
+            //int id = Integer.valueOf(lastVRRecord.getId());
+            //checkCount++;
+            count++;
+            newVRRecordID = Integer.toString(count);
+            Toast.makeText(context,"ID is : "+count,Toast.LENGTH_SHORT).show();
+
+        }catch (Exception ex){
+            //newFitnessRecordID = formattedDate + "FR001" ;
+            Toast.makeText(context, ex.toString(),Toast.LENGTH_SHORT).show();
+        }
+        return newVRRecordID;
     }
 }

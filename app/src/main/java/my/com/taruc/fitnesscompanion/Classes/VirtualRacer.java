@@ -7,8 +7,8 @@ package my.com.taruc.fitnesscompanion.Classes;
 public class VirtualRacer {
     String id;
     String userID;
-    int distance;
-    int duration;
+    double distance;
+    double duration;
     int speed;
     DateTime updatedAt, createdAt;
 
@@ -28,19 +28,19 @@ public class VirtualRacer {
         this.userID = userID;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 

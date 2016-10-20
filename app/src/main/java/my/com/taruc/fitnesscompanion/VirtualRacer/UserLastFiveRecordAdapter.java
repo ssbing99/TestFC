@@ -45,8 +45,8 @@ public class UserLastFiveRecordAdapter extends RecyclerView.Adapter<UserLastFive
         VirtualRacer vracer = list.get(position);
         holder.textViewDate.setText(vracer.getCreatedAt().toString());
         //textViewTime.setText(list.get(position).getTime());
-        holder.textViewDistance.setText(Integer.toString(vracer.getDistance()));
-        holder.textViewTimeUsed.setText(Integer.toString(vracer.getDuration()));
+        holder.textViewDistance.setText(String.valueOf(vracer.getDistance()));
+        holder.textViewTimeUsed.setText(String.valueOf(vracer.getDuration()));
     }
 
     @Override
