@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,11 +50,9 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Duration;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
-import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
-import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Classes.Set;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
@@ -61,15 +61,15 @@ import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UI.ExercisePage;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
-public class VirtualRacerMainActivity extends Activity implements View.OnClickListener {
+public class VirtualRacerMainActivity extends Activity implements View.OnClickListener, GPSCallback {
     Context context;
-    private VRRecordDA vrRecordDA;
+    private FitnessRecordDA myFitnessRecordDA;
     private ActivityPlanDA myActivityPlanDA;
     private ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
     private UserLocalStore userLocalStore;
     private ServerRequests serverRequests;
     private RetrieveRequest mRetreiveRequests;
-    private VirtualRacer vrrecord;
+    private FitnessRecord fitnessRecord;
     private ActivityPlan activityPlan;
     double totalHR = 0.0;
     static int HRno = 0;
@@ -142,18 +142,14 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     ImageView animImage;
     ImageView vr1, vr2;
 
-    LocationManager locManager;
-    LocationListener locListener;
+    private GPSManager gpsManager = null;
+    private double speed = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_racer_main);
         ButterKnife.bind(this);
-        context=this;
-        vrRecordDA = new VRRecordDA(this);
-        userLocalStore = new UserLocalStore(this);
-
 
         btnSetTarget.setOnClickListener(this);
         btnSetChallenge.setOnClickListener(this);
@@ -179,10 +175,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
         // Initialize Distance UI
         txtDistance.setText("--");
-
-        //Initialize Speed UI
-        txtSpeed.setText("--");
-
 
         ////////////////////////////////////////////////////////////////VR
         animImage = (ImageView) findViewById(R.id.stickman);
@@ -223,6 +215,11 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
         registerReceiver(DistanceBroadcastReceiver, new IntentFilter(StepManager.BROADCAST_ACTION_2));
         displayDistance(null);
+
+        gpsManager = new GPSManager();
+        gpsManager.startListening(getApplicationContext());
+        gpsManager.setGPSCallback(this);
+        txtSpeed.setText(getString(R.string.info));
 
 
     }
@@ -281,8 +278,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
                 startTimer();
                 isStartedExerise = true;
-                txtDistance.setText(Double.toString(displayDistance(intent)));
-                txtSpeed.setText(Double.toString(getSpeed()));
+                displayDistance(intent);
+                onGPSUpdate(location);
                 ViewStart.setText(R.string.stop);
             } else if (txt.equalsIgnoreCase("Stop")) {
                 /*************Start Cool Down*************/
@@ -294,8 +291,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 resetChronometer();
                 bg.cancel();
                 animDraw.stop();
+                isStartedExerise = false;
                 ViewStart.setText(R.string.start);
-                //txtDistance.setText(String.format("%.2f m", total_dis));
                 txtDistance.setText("--");
             }
         }
@@ -440,7 +437,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                         startTimer();
                         ViewStart.setText(R.string.end);
                         total_dis = 0;
-                        addVRRecord();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -497,28 +493,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     /*********************************************************************************************
      * Insert Fitness Record
      ********************************************************************************************/
-    public void addVRRecord(){
-        String currentDateTime = getCurrentDateTime();
-        int distance = 10;
-        int duration = 10;
-        int speed = 10;
-
-        vrrecord = new VirtualRacer();
-        vrrecord.setId("1");
-        vrrecord.setUserID(Integer.toString(userLocalStore.returnUserID()));
-        vrrecord.setDuration(duration);
-        vrrecord.setDistance(distance);
-        vrrecord.setSpeed(speed);
-        vrrecord.setCreatedAt(new DateTime(currentDateTime));
-        vrrecord.setUpdatedAt(new DateTime(currentDateTime));
-
-        boolean success = vrRecordDA.insertRecord(vrrecord);
-        if(success==true){
-            Toast.makeText(this, "Insert Complete", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
-        }
-    }
 /*
     public void addFitnessRecord() {
         try {
@@ -613,7 +587,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
     };
 
-    public double displayDistance(Intent intent) {
+    public void displayDistance(Intent intent) {
         showCurrentLocation();
         if (location != null) {
             clat = location.getLatitude();
@@ -634,8 +608,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         } else {
             Log.i("Virtual Racer-Location", "Location is null.");
         }
-
-        return total_dis;
     }
 
     public double calDistance(double lat1, double lon1, double lat2, double lon2) {
@@ -741,17 +713,29 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
     }
 
-    public double getSpeed() {
-        double speed = 0;
+    @Override
+    public void onGPSUpdate(Location location)
+    {
+        location.getLatitude();
+        location.getLongitude();
+        speed = location.getSpeed();
 
-        showCurrentLocation();
-        if (location != null) {
-            speed = location.getSpeed();
-        }
-        return speed;
+        String speedString = "" + roundDecimal(convertSpeed(speed),2);
+
+        txtSpeed.setText(speedString);
     }
 
-    public void BackAction(View view) {
-        this.finish();
+    private double convertSpeed(double speed){
+        return ((speed * Constants.HOUR_MULTIPLIER) * Constants.UNIT_MULTIPLIERS);
     }
+
+    private double roundDecimal(double value, final int decimalPlace) {
+        BigDecimal bd = new BigDecimal(value);
+
+        bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);
+        value = bd.doubleValue();
+
+        return value;
+    }
+
 }

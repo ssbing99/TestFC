@@ -219,7 +219,7 @@
                 android:id="@+id/currentSpeedResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="test"
+                android:text="@string/gps_info"
                 android:textSize="@dimen/fontSizeLarge"
                 android:layout_margin="1dp"
                 android:layout_column="1"/>

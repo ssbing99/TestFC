@@ -225,4 +225,6 @@
     <string name="avgspeed">Avg Speed: </string>
     <string name="timeused">Time Used: </string>
 
+    <string name="gps_info">Waiting for GPS signal...</string>
+
 </resources>
