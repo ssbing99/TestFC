@@ -175,7 +175,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             min = "00";
         }
 
-        distanceAmt.setText(dis + " distances");
+        distanceAmt.setText(dis + " km");
         durationAmt.setText(hour + "hour " + min + "mins");
 
         // Initialize Distance UI

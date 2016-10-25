@@ -461,6 +461,16 @@ public class MainMenu extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void GoChart(View view){
+        Intent intent = new Intent(this, ChartPage.class);
+        startActivity(intent);
+    }
+
+    public void GoFoodNutrient(View view){
+        Intent intent = new Intent(this, FoodNutrientPage.class);
+        startActivity(intent);
+    }
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

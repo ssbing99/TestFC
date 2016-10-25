@@ -227,4 +227,7 @@
 
     <string name="gps_info">Waiting for GPS signal...</string>
 
+    <string name="chart">Chart</string>
+    <string name="food">Food Nutrient</string>
+
 </resources>
