@@ -27,75 +27,33 @@
         android:id="@+id/horiRuleSC1"
         android:layout_below="@+id/textViewSC"/>
 
-    <TableLayout
-
+    <TextView
+        android:text="@string/category"
+        android:textAlignment="textStart"
+        android:layout_gravity="start"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/categoryTable"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_below="@id/horiRuleSC1">
-
-        <TableRow>
-            <TextView
-                android:id="@+id/categoryChoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category"
-                android:textSize="@dimen/fontSizeLarge"
-                android:layout_margin="1dp"
-                android:layout_column="0"/>
-            <TextView
-                android:text=":"
-                android:textSize="@dimen/fontSizeLarge"
-                android:textStyle="bold"
-                android:layout_margin="1dp"
-                android:layout_column="1"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"/>
-            <Spinner
-                android:id="@+id/challengeSpinner"></Spinner>
-        </TableRow>
-    </TableLayout>
+        android:paddingLeft="10dp"
+        android:id="@+id/textViewCategory"
+        android:layout_below="@+id/horiRuleSC1"/>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#000000"
         android:id="@+id/horiRuleSC2"
-        android:layout_below="@+id/categoryTable"/>
+        android:layout_below="@+id/textViewCategory"/>
 
-    <FrameLayout
-        android:id="@+id/subChallengeFrame"
+    <ExpandableListView
+        android:id="@+id/lvExpSC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/horiRuleSC2"
-        android:paddingLeft="15dp"
-        android:paddingBottom="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
-    </FrameLayout>
+        android:layout_below="@+id/horiRuleSC2"/>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#000000"
-        android:id="@+id/horiRuleSC3"
-        android:layout_below="@+id/subChallengeFrame"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnSet1"
-        android:text="@string/set"
-        android:layout_below="@+id/horiRuleSC3"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnReset2"
-        android:text="@string/reset"
-        android:layout_below="@+id/btnSet1"/>
+
 </RelativeLayout>
