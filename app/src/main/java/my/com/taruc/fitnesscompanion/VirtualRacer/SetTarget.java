@@ -54,4 +54,8 @@ public class SetTarget extends ActionBarActivity {
         min.setText("");
 
     }
+
+    public void BackAction(View view) {
+        this.finish();
+    }
 }

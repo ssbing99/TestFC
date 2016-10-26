@@ -185,16 +185,6 @@
 
 
     </FrameLayout>
-    <Chronometer
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/chronometerTimer"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:textSize="60dp"
-        android:textIsSelectable="false"
-        android:textColor="@color/ThemeFontColor"
-        android:layout_below="@+id/framelayout" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -325,4 +315,27 @@
         android:layout_below="@+id/TextViewStage"
         android:text="@string/start"
         android:onClick="buttonStart"/>
+
+    <Chronometer
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometerTimer"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@color/ThemeFontColor"
+        android:layout_below="@+id/framelayout"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/CountDownTimer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@color/ThemeFontColor"
+        android:layout_alignTop="@+id/chronometerTimer"
+        android:visibility="invisible"
+        android:text="00:00" />
 </RelativeLayout>

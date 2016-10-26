@@ -16,6 +16,7 @@ import android.animation.ObjectAnimator;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
@@ -126,8 +127,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     TextView distanceAmt;
     @BindView(R.id.durationAmount)
     TextView durationAmt;
-    //@BindView(R.id.CountDownTimer)
-    //TextView CountDownTimerText;
+    @BindView(R.id.CountDownTimer)
+    TextView CountDownTimerText;
     @BindView(R.id.startButton)
     Button ViewStart;
     @BindView(R.id.chronometerTimer)
@@ -146,7 +147,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
     private GPSManager gpsManager = null;
     private double speed = 0.0;
-
+    String dist, hour, min;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,13 +161,11 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         btnSetChallenge.setOnClickListener(this);
         btnViewPastRecord.setOnClickListener(this);
 
-        String dis, hour, min;
-        dis = getIntent().getStringExtra("Distance");
-        hour = getIntent().getStringExtra("Hour");
-        min = getIntent().getStringExtra("Min");
-
-        if (dis == null) {
-            dis = "0";
+            dist = getIntent().getStringExtra("Distance");
+            hour = getIntent().getStringExtra("Hour");
+            min = getIntent().getStringExtra("Min");
+        if(dist == null){
+            dist = "0";
         }
         if (hour == null) {
             hour = "0";
@@ -175,7 +174,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             min = "00";
         }
 
-        distanceAmt.setText(dis + " km");
+        distanceAmt.setText(dist + " km");
         durationAmt.setText(hour + "hour " + min + "mins");
 
         // Initialize Distance UI
@@ -279,7 +278,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 TextViewStage.setText("Start "); //+ activityPlan.getActivityName());
                 resetChronometer();
                 Duration myDuration = new Duration();
-                myDuration.addMinutes(0);//activityPlan.getDuration());
+                //\myDuration.addMinutes(activityPlan.getDuration());
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
                 startTimer();
                 isStartedExerise = true;
@@ -299,6 +298,11 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 isStartedExerise = false;
                 ViewStart.setText(R.string.start);
                 txtDistance.setText("--");
+                    dist = "0";
+                    hour = "0";
+                    min = "00";
+                distanceAmt.setText(dist + " km");
+                durationAmt.setText(hour + "hour " + min + "mins");
             }
         }
     }
@@ -312,7 +316,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 timerRunning = true;
                 DateTime countingDown = new DateTime();
                 countingDown.getTime().addSecond(millisUntilFinished / 1000);
-                //CountDownTimerText.setText(countingDown.getTime().getFullTimeString());
+                CountDownTimerText.setText(countingDown.getTime().getFullTimeString());
             }
 
             public void onFinish() {
@@ -380,7 +384,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         isStartedExerise = false;
         DateTime startingTime = new DateTime();
         startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
-        //CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
+        CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
         //reset distance
         total_dis = 0;
 
@@ -405,6 +409,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         int stoppedMilliseconds = 0;
         timerRunning = true;
         String chronoText = myChronometer.getText().toString();
+        Toast.makeText(this, "Test 1 "+ chronoText, Toast.LENGTH_SHORT).show();
         String array[] = chronoText.split(":");
         if (array.length == 2) {
             stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
@@ -424,34 +429,66 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         myChronometer.stop();
         timerRunning = false;
         String message = "Confirm stop fitness activity now?";
+        String message2 = "Confirm stop challenge now?";
         if (getDuration() < 120) { //&& activityPlan.getDuration() >= 2) {
-            message = "If is more effective to do this exercise for at least 2 minutes. Are you sure you want to stop here?";
+            message = "It is more effective to do this exercise for at least 2 minutes. Are you sure you want to stop here?";
         }
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Stop activity")
-                .setMessage(message)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //*********************addFitnessRecord();
-                        //txtDistance.setTextColor(Color.GRAY);
+        if(!dist.equals(0) && dist!=null){
+            if (dis < Double.parseDouble(dist))
+            message2 = "Your target is not yet accomplish. Are you sure you want to stop here?";
 
-                        isStartedExerise = false;
-                        TextViewStage.setText(R.string.coolingDown);
-                        resetChronometer();
-                        myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
-                        startTimer();
-                        ViewStart.setText(R.string.end);
-                        total_dis = 0;
-                        addVRRecord();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        timerRunning = true;
-                        myChronometer.start();
-                    }
-                }).create();
-        dialog.show();
+            AlertDialog dia = new AlertDialog.Builder(this)
+                    .setTitle("Stop challenge")
+                    .setMessage(message2)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            addVRRecord();
+                            isStartedExerise = false;
+                            TextViewStage.setText(R.string.coolingDown);
+                            resetChronometer();
+                            myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
+                            startTimer();
+                            ViewStart.setText(R.string.end);
+                            total_dis = 0;
+
+                        }
+                    })
+                    .setNegativeButton("Continue", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            timerRunning = true;
+                            myChronometer.start();
+                        }
+                    }).create();
+            dia.show();
+        }else {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Stop activity")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //*********************addFitnessRecord();
+                            //txtDistance.setTextColor(Color.GRAY);
+                            addVRRecord();
+                            isStartedExerise = false;
+                            TextViewStage.setText(R.string.coolingDown);
+                            resetChronometer();
+                            myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
+                            startTimer();
+                            ViewStart.setText(R.string.end);
+                            total_dis = 0;
+
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            timerRunning = true;
+                            myChronometer.start();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 
     public void resetChronometer() {
@@ -462,12 +499,12 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     }
 
     private class TickListener implements Chronometer.OnChronometerTickListener {
-        private int hour;
-        private int min;
+        int hours;
+        int mins;
 
         public TickListener(int hour, int min) {
-            this.hour = hour;
-            this.min = min;
+            this.hours = hour;
+            this.mins = min;
         }
 
         @Override
@@ -485,7 +522,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 tickMinutes = Integer.parseInt(array[0]);
                 tickSeconds = Integer.parseInt(array[1]);
             }
-            if (tickHours == hour && tickMinutes == min && tickSeconds == 00 && timerRunning) {
+            if (tickHours == hours && tickMinutes == mins && tickSeconds == 00 && timerRunning) {
                 timerRunning = true;
                 //alarmSound.play(context, 1);
             } else {
@@ -502,7 +539,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     public void addVRRecord(){
         String currentDateTime = getCurrentDateTime();
         double distance = getDistance();
-        int duration = getDuration();
+        double duration = getDuration();
         int speed = 10;
 
         vrrecord = new VirtualRacer();
@@ -516,7 +553,13 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
         boolean success = vrRecordDA.insertRecord(vrrecord);
         if(success==true){
-            Toast.makeText(this, "Insert Complete", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Insert Complete "+ duration, Toast.LENGTH_SHORT).show();
+            /*
+            Toast.makeText(this, "id "+ vrrecord.getId(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Uid "+ vrrecord.getUserID(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Duration "+ vrrecord.getDuration(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Distance  "+ vrrecord.getDistance(), Toast.LENGTH_SHORT).show();
+            */
         } else {
             Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
         }
@@ -566,13 +609,14 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         int timerSecond;
         if (isChallenge) {
             DateTime RemainningTime = new DateTime();
-            RemainningTime.setTime(myChronometer.getText().toString()); // CountDownTimerText
-            timerSecond = fitnessRecordFromServer.getRecordDuration() - (fitnessRecordFromServer.getRecordDuration() - RemainningTime.getTime().getTotalSeconds());
+            RemainningTime.setTime(CountDownTimerText.getText().toString()); //
+            timerSecond = Integer.parseInt(Double.toString(vrrecord.getDuration()-(vrrecord.getDuration()-RemainningTime.getTime().getTotalSeconds())));//fitnessRecordFromServer.getRecordDuration() - (fitnessRecordFromServer.getRecordDuration() - RemainningTime.getTime().getTotalSeconds());
 
         } else {
             //get duration in second
             int stoppedMilliseconds = 0;
             String chronoText = myChronometer.getText().toString();
+            Toast.makeText(this, "Test 2 "+ myChronometer.getText().toString()+chronoText, Toast.LENGTH_SHORT).show();
             String array[] = chronoText.split(":");
             if (array.length == 2) {
                 stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
@@ -581,6 +625,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             }
             timerSecond = stoppedMilliseconds / 1000;
         }
+        Toast.makeText(this, "Test 4 "+ timerSecond, Toast.LENGTH_SHORT).show();
         return timerSecond;
     }
 

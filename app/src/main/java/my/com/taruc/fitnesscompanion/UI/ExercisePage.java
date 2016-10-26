@@ -481,6 +481,7 @@ public class ExercisePage extends ActionBarActivity {
             //get duration in second
             int stoppedMilliseconds = 0;
             String chronoText = myChronometer.getText().toString();
+            Toast.makeText(this, "Test 2 "+ myChronometer.getText().toString()+chronoText, Toast.LENGTH_SHORT).show();
             String array[] = chronoText.split(":");
             if (array.length == 2) {
                 stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
@@ -489,6 +490,7 @@ public class ExercisePage extends ActionBarActivity {
             }
             timerSecond = stoppedMilliseconds / 1000;
         }
+        Toast.makeText(this, "Test 4 "+ timerSecond, Toast.LENGTH_SHORT).show();
         return timerSecond;
     }
 
