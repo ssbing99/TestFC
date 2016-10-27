@@ -12,6 +12,7 @@
     <WebView
         android:id="@+id/webViewFood"
         android:layout_below="@+id/titleBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_width="370dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"></WebView>
 </RelativeLayout>
