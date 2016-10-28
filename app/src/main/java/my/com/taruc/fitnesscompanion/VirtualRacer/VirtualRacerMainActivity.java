@@ -147,7 +147,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
     private GPSManager gpsManager = null;
     private double speed = 0.0;
-    String dist, hour, min;
+    String dist, hour, min = "00";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,13 +164,13 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             dist = getIntent().getStringExtra("Distance");
             hour = getIntent().getStringExtra("Hour");
             min = getIntent().getStringExtra("Min");
-        if(dist == null){
+        if(dist == null || dist.matches("")){
             dist = "0";
         }
-        if (hour == null) {
+        if (hour == null || hour.matches("")) {
             hour = "0";
         }
-        if (min == null || min.contains("")) {
+        if (min == null || min.matches("")) {
             min = "00";
         }
 
@@ -189,7 +189,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         vr2 = (ImageView) findViewById(R.id.imageVR2);
 
         //BACKGROUND
-        bg = ObjectAnimator.ofFloat(1.0f, -0.1f);
+        bg = ObjectAnimator.ofFloat(1.0f, -0.05f);
         bg.setRepeatCount(ValueAnimator.INFINITE);
         bg.setInterpolator(new LinearInterpolator());
         bg.setDuration(10000L);
@@ -409,7 +409,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         int stoppedMilliseconds = 0;
         timerRunning = true;
         String chronoText = myChronometer.getText().toString();
-        Toast.makeText(this, "Test 1 "+ chronoText, Toast.LENGTH_SHORT).show();
+
         String array[] = chronoText.split(":");
         if (array.length == 2) {
             stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
@@ -430,11 +430,19 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         timerRunning = false;
         String message = "Confirm stop fitness activity now?";
         String message2 = "Confirm stop challenge now?";
+        //////////
+        int time=0;
+        if(hour!=null&&!hour.equals("")&&!hour.equals("0")){
+            time = Integer.parseInt(hour) * 60;
+        }
+        if(min!=null&&!min.equals("")&&!min.equals("00")){
+            time += Integer.parseInt(min);
+        }
+
         if (getDuration() < 120) { //&& activityPlan.getDuration() >= 2) {
             message = "It is more effective to do this exercise for at least 2 minutes. Are you sure you want to stop here?";
         }
-        if(!dist.equals(0) && dist!=null){
-            if (dis < Double.parseDouble(dist))
+        if(getDuration() < time){
             message2 = "Your target is not yet accomplish. Are you sure you want to stop here?";
 
             AlertDialog dia = new AlertDialog.Builder(this)

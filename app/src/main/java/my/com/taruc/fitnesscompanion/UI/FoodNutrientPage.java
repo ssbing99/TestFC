@@ -2,6 +2,7 @@ package my.com.taruc.fitnesscompanion.UI;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -36,5 +37,9 @@ public class FoodNutrientPage extends ActionBarActivity {
         });
         webViewFood.loadUrl("http://www.tarucfit.pe.hu/Web/FoodCategory.php");
 
+    }
+
+    public void BackAction(View view) {
+        this.finish();
     }
 }

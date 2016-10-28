@@ -40,7 +40,7 @@ public class SetTarget extends ActionBarActivity {
         intent.putExtras(bundle);
 
         startActivity(intent);
-
+        finish();
     }
 
     public void targetReset(View view){
