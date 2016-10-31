@@ -40,7 +40,7 @@
     <application
         android:name=".FitnessApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_drawer"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data

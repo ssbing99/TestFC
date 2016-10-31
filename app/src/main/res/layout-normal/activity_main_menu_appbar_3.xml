@@ -167,7 +167,9 @@
                                     android:onClick="GoChart"
                                     android:background="@drawable/circle_icon_button"
                                     android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/chart"
+                                    android:padding="12dp"/>
                             </TableRow>
 
                             <TableRow>
@@ -259,7 +261,9 @@
                                     android:layout_marginTop="5dp"
                                     android:background="@drawable/circle_icon_button"
                                     android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/food"
+                                    android:padding="2dp"/>
                             </TableRow>
                             <TableRow>
                                 <TextView

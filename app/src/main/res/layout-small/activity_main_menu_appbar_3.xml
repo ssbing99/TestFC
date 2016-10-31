@@ -149,11 +149,12 @@
                                     android:layout_height="30dp"
                                     android:id="@+id/imageViewChart"
                                     android:clickable="true"
-                                    android:onClick="GoSchedule"
+                                    android:onClick="GoChart"
                                     android:background="@drawable/circle_icon_button"
-                                    android:padding="3dp"
+                                    android:padding="6dp"
                                     android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/chart" />
                             </TableRow>
                             <TableRow>
                                 <TextView
@@ -236,7 +237,9 @@
                                     android:onClick="GoFoodNutrient"
                                     android:background="@drawable/circle_icon_button"
                                     android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/food"
+                                    android:padding="1dp"/>
                             </TableRow>
                             <TableRow>
                                 <TextView
