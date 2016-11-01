@@ -21,8 +21,10 @@ import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class VRRecordDA {
+    private UserLocalStore userLocalStore;
     private Context context;
     FitnessDB fitnessDB;
     SQLiteDatabase database;
@@ -44,10 +46,6 @@ int count =0;
         this.context = context;
     }
 
-    public void open() throws SQLException {
-        //database = dbHelper.getWritableDatabase();
-    }
-
     public boolean insertRecord(VirtualRacer vracer){
         ContentValues values = new ContentValues();
         fitnessDB = new FitnessDB(context);
@@ -58,11 +56,11 @@ int count =0;
         try {
             values.put(columnID, vracer.getId());
             values.put(columnUserID, vracer.getUserID());
-            values.put(columnDistance, vracer.getDistance());
             values.put(columnDuration, vracer.getDuration());
+            values.put(columnDistance, vracer.getDistance());
             values.put(columnSpeed, vracer.getSpeed());
-            values.put(columnCreatedAt, vracer.getCreatedAt().getDateTimeString());//format.format(date)
-            values.put(columnUpdatedAt, vracer.getUpdatedAt().getDateTimeString());
+            values.put(columnCreatedAt, vracer.getCreatedAt().toString());//format.format(date)
+            values.put(columnUpdatedAt, vracer.getUpdatedAt().toString());
             db.insert(TABLE_NAME, null, values);
             success = true;
             Toast.makeText(context,"Inserting to DB", Toast.LENGTH_SHORT).show();
@@ -73,32 +71,40 @@ int count =0;
         return success;
     }
 
-    public ArrayList<VirtualRacer> getAllVRRecord() {
+    public ArrayList<VirtualRacer> getAllVRRecord(String userId) {
+
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<VirtualRacer> records = new ArrayList<VirtualRacer>();
-        int count1=0;
+        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+columnUserID+" ='"+userId+"'";
         //String sql = "SELECT * FROM "
+        Toast.makeText(context, "User : "+userId,Toast.LENGTH_SHORT).show();
 
             try {
-                Cursor cursor = db.query(TABLE_NAME, allColumn, null, null, null, null, null);
+                //Cursor cursor = db.query(TABLE_NAME, allColumn, null, null, null, null, null);
+                Cursor cursor = db.rawQuery(sql, null);
                 cursor.moveToFirst();
+                if(cursor.getCount() ==0){
+                    Toast.makeText(context, "Current have no record not found. ",Toast.LENGTH_SHORT).show();
+                }else {
 
-                while (!cursor.isAfterLast()) {
-                    count++;
-                    VirtualRacer vrRecord = new VirtualRacer();
-                    vrRecord.setId(cursor.getString(0));
-                    vrRecord.setUserID(cursor.getString(1));
-                    vrRecord.setDuration(Double.parseDouble(cursor.getString(2)));
-                    vrRecord.setDistance(Double.parseDouble(cursor.getString(3)));
-                    vrRecord.setSpeed(Integer.parseInt(cursor.getString(4)));
-                    vrRecord.setCreatedAt(new DateTime(cursor.getString(5)));
-                    vrRecord.setUpdatedAt(new DateTime(cursor.getString(6)));
-                    records.add(vrRecord);
-                    cursor.moveToNext();
+
+                    while (!cursor.isAfterLast()) {
+                        count++;
+                        VirtualRacer vrRecord = new VirtualRacer();
+                        vrRecord.setId(cursor.getString(0));
+                        vrRecord.setUserID(cursor.getString(1));
+                        vrRecord.setDuration(Double.parseDouble(cursor.getString(2)));
+                        vrRecord.setDistance(Double.parseDouble(cursor.getString(3)));
+                        vrRecord.setSpeed(Integer.parseInt(cursor.getString(4)));
+                        vrRecord.setCreatedAt(cursor.getString(5));
+                        vrRecord.setUpdatedAt(cursor.getString(6));
+                        records.add(vrRecord);
+                        cursor.moveToNext();
+                    }
+                    Toast.makeText(context, "Record count: " + count, Toast.LENGTH_SHORT).show();
+                    cursor.close();
                 }
-                Toast.makeText(context, "NO: "+count,Toast.LENGTH_SHORT).show();
-                cursor.close();
             } catch (SQLException e) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             }
@@ -107,57 +113,9 @@ int count =0;
     }
 
     ////////////////////////////////////////////////////
-    public VirtualRacer getLastFitnessRecord() {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        VirtualRacer myVRRecord= new VirtualRacer();
-        String getquery = "SELECT "+ allColumn+" FROM "+ TABLE_NAME+" ORDER BY "+ columnCreatedAt+" DESC LIMIT 1";
-        try {
-            Cursor c = db.rawQuery(getquery, null);
-            if (c.moveToFirst()) {
-                myVRRecord = new VirtualRacer();
-                myVRRecord.setId(c.getString(0));
-                myVRRecord.setUserID(c.getString(1));
-                myVRRecord.setDuration(Integer.parseInt(c.getString(2)));
-                myVRRecord.setDistance(Integer.parseInt(c.getString(3)));
-                myVRRecord.setSpeed(Integer.parseInt(c.getString(4)));
-                myVRRecord.setCreatedAt(new DateTime(c.getString(5)));
-                myVRRecord.setUpdatedAt(new DateTime(c.getString(6)));
-                c.close();
-            }
-        }catch(SQLException e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-        }
-        db.close();
-        return myVRRecord;
-    }
-    public int getCountVRRecord() {
-        int count2=0;
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        VirtualRacer myVRRecord= new VirtualRacer();
-        String getquery = "SELECT "+ allColumn+" FROM "+ TABLE_NAME+" ORDER BY "+ columnCreatedAt+" DESC";
-        try {
-            Cursor c = db.rawQuery(getquery, null);
-            if (c.moveToFirst()) {
-                count2++;
-                myVRRecord = new VirtualRacer();
-                myVRRecord.setId(c.getString(0));
-                myVRRecord.setUserID(c.getString(1));
-                myVRRecord.setDuration(Integer.parseInt(c.getString(2)));
-                myVRRecord.setDistance(Integer.parseInt(c.getString(3)));
-                myVRRecord.setSpeed(Integer.parseInt(c.getString(4)));
-                myVRRecord.setCreatedAt(new DateTime(c.getString(5)));
-                myVRRecord.setUpdatedAt(new DateTime(c.getString(6)));
-                c.close();
-            }
-        }catch(SQLException e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-        }
-        db.close();
-        return count2;
-    }
-    public String generateNewVRRecordID(){
+
+
+    public String generateNewVRRecordID(String userId){
         String newVRRecordID="";
         VirtualRacer lastVRRecord;
         int checkCount=0;
@@ -173,15 +131,17 @@ int count =0;
         SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
         String formattedDate = df.format(dateObj); //current date
 
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+columnUserID+" ='"+userId+"'";
+        Cursor cursor = db.rawQuery(sql, null);
         try {
-            getAllVRRecord();
-            //checkCount=getCountVRRecord();//lastVRRecord = getLastFitnessRecord();
-            //int id = Integer.valueOf(lastVRRecord.getId());
-            //checkCount++;
+            //getAllVRRecord(userId);
+            count=cursor.getCount();
             count++;
             newVRRecordID = Integer.toString(count);
             Toast.makeText(context,"ID is : "+count,Toast.LENGTH_SHORT).show();
-
+            //count=0;
         }catch (Exception ex){
             //newFitnessRecordID = formattedDate + "FR001" ;
             Toast.makeText(context, ex.toString(),Toast.LENGTH_SHORT).show();

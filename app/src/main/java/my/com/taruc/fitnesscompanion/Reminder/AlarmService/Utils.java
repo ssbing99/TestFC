@@ -26,7 +26,8 @@ public class Utils {
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = builder.setContentIntent(pendingNotificationIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                //.setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.fitness_run_icon)
                 .setTicker("Health")
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)

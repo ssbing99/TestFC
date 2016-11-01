@@ -236,7 +236,8 @@
             android:parentActivityName=".VirtualRacer.VirtualRacerMainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ChartPage" />
-        <activity android:name=".UI.FoodNutrientPage"></activity>
+        <activity android:name=".UI.FoodNutrientPage" />
+        <activity android:name=".VirtualRacer.ViewPast"></activity>
     </application>
 
 </manifest>

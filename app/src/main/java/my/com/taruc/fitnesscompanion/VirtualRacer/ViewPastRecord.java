@@ -13,37 +13,36 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 import my.com.taruc.fitnesscompanion.VirtualRacer.UserLastFiveRecordAdapter;
 
 public class ViewPastRecord extends ActionBarActivity {
-    RecyclerView recyclerView;
-    private VRRecordDA vrRecordDA;
-    UserLastFiveRecordAdapter listAdapter;
+    ListView listView;
+    VRRecordDA vrRecordDA;
+    List<VirtualRacer> list;
+    UserLocalStore userLocalStore;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_past_record);
 
-        vrRecordDA = new VRRecordDA(this);
-//        vrRecordDA.open();
-        final List<VirtualRacer> vrRecordList = vrRecordDA.getAllVRRecord();
-        recyclerView = (RecyclerView)findViewById(R.id.lvLast5Record);
-        listAdapter = new UserLastFiveRecordAdapter(getApplicationContext(), vrRecordList,this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(listAdapter);
-        /*
+        userLocalStore = new UserLocalStore(this);
 
-            listView = (ListView) findViewById(R.id.lvLast5Record);
-            listView.setAdapter(listAdapter);
-        */
-        //    Toast.makeText(this,"Is empty",Toast.LENGTH_SHORT).show();
+        vrRecordDA = new VRRecordDA(this);
+
+        list = vrRecordDA.getAllVRRecord(Integer.toString(userLocalStore.returnUserID()));
+
+        UserLastFiveRecordAdapter adap = new UserLastFiveRecordAdapter(this,list);
+
+        listView = (ListView)findViewById(R.id.listPast);
+        listView.setAdapter(adap);
 
 
     }

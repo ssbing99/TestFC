@@ -10,7 +10,7 @@ public class VirtualRacer {
     double distance;
     double duration;
     int speed;
-    DateTime updatedAt, createdAt;
+    String updatedAt, createdAt;
 
     public String getId() {
         return id;
@@ -52,19 +52,19 @@ public class VirtualRacer {
         this.speed = speed;
     }
 
-    public DateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(DateTime updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public DateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(DateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

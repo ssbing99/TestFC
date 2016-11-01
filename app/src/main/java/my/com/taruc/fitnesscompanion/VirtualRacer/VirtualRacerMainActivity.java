@@ -241,7 +241,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.btnViewPastRecord:
-                intent = new Intent(this, ViewPastRecord.class);
+                intent = new Intent(this, ViewPastRecord.class);/////////////record
                 startActivity(intent);
                 break;
         }
@@ -551,23 +551,25 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         int speed = 10;
 
         vrrecord = new VirtualRacer();
-        vrrecord.setId(vrRecordDA.generateNewVRRecordID());
+        vrrecord.setId(vrRecordDA.generateNewVRRecordID(Integer.toString(userLocalStore.returnUserID())));
         vrrecord.setUserID(Integer.toString(userLocalStore.returnUserID()));
         vrrecord.setDuration(duration);
         vrrecord.setDistance(distance);
         vrrecord.setSpeed(speed);
-        vrrecord.setCreatedAt(new DateTime(currentDateTime));
-        vrrecord.setUpdatedAt(new DateTime(currentDateTime));
+        vrrecord.setCreatedAt(currentDateTime);
+        vrrecord.setUpdatedAt(currentDateTime);
 
         boolean success = vrRecordDA.insertRecord(vrrecord);
         if(success==true){
             Toast.makeText(this, "Insert Complete "+ duration, Toast.LENGTH_SHORT).show();
-            /*
-            Toast.makeText(this, "id "+ vrrecord.getId(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Uid "+ vrrecord.getUserID(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Duration "+ vrrecord.getDuration(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Distance  "+ vrrecord.getDistance(), Toast.LENGTH_SHORT).show();
-            */
+
+            //Toast.makeText(this, "id "+ vrrecord.getId(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Uid "+ vrrecord.getUserID(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Duration "+ vrrecord.getDuration(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Distance  "+ vrrecord.getDistance(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Date1 CA " + vrrecord.getCreatedAt(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Date 2 get " + getCurrentDateTime(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Date 3 UA " + vrrecord.getUpdatedAt(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
         }
@@ -607,14 +609,14 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     public String getCurrentDateTime() {
         //get current Datetime
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.sss");
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
         String formattedTime = df.format(c.getTime());
         String formattedDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
         return formattedDate + " " + formattedTime;
     }
 
-    public int getDuration() {
-        int timerSecond;
+    public double getDuration() {
+        double timerSecond;
         if (isChallenge) {
             DateTime RemainningTime = new DateTime();
             RemainningTime.setTime(CountDownTimerText.getText().toString()); //
@@ -622,18 +624,17 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
 
         } else {
             //get duration in second
-            int stoppedMilliseconds = 0;
+            double stoppedMilliseconds = 0.0;///<<<<<<<<<<<<<<<<<
             String chronoText = myChronometer.getText().toString();
-            Toast.makeText(this, "Test 2 "+ myChronometer.getText().toString()+chronoText, Toast.LENGTH_SHORT).show();
             String array[] = chronoText.split(":");
             if (array.length == 2) {
                 stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
             } else if (array.length == 3) {
                 stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
             }
-            timerSecond = stoppedMilliseconds / 1000;
+            timerSecond = stoppedMilliseconds / 100000;
         }
-        Toast.makeText(this, "Test 4 "+ timerSecond, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Test 4 "+ timerSecond, Toast.LENGTH_SHORT).show();
         return timerSecond;
     }
 
