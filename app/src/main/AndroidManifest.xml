@@ -217,6 +217,16 @@
             android:value="60b5d30e6d303582eee4124271299f39c90669ee" />
 
         <activity
+            android:name=".UI.ChartPage"
+            android:label="ChartPage"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".UI.FoodNutrientPage"
+            android:label="FoodNutrientPage"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".VirtualRacer.VirtualRacerMainActivity"
             android:label="VirtualRacerMainPage"
             android:screenOrientation="portrait" />
@@ -235,8 +245,7 @@
             android:label="PastRecordPage"
             android:parentActivityName=".VirtualRacer.VirtualRacerMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ChartPage" />
-        <activity android:name=".UI.FoodNutrientPage" />
+
         <activity android:name=".VirtualRacer.ViewPast"></activity>
     </application>
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,14 +16,18 @@ import my.com.taruc.fitnesscompanion.R;
 
 public class ChartPage extends ActionBarActivity {
 
-    private WebView webViewChart;
+    @BindView(R.id.webViewChart)
+    WebView webViewChart;
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_page);
+        ButterKnife.bind(this);
 
-        webViewChart = (WebView) findViewById(R.id.webViewChart);
+        textViewTitle.setText("Chart");
 
         webViewChart.setWebViewClient(new MyWebViewClient());
 

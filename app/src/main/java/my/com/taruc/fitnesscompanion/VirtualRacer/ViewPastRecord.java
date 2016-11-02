@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
@@ -28,10 +31,16 @@ public class ViewPastRecord extends ActionBarActivity {
     List<VirtualRacer> list;
     UserLocalStore userLocalStore;
 
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_past_record);
+        ButterKnife.bind(this);
+
+        textViewTitle.setText("View Past Records");
 
         userLocalStore = new UserLocalStore(this);
 

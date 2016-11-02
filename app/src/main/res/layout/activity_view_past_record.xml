@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/brTime"
-                android:text="@string/time"
+                android:text="@string/time2"
                 android:textSize="@dimen/fontSize"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"

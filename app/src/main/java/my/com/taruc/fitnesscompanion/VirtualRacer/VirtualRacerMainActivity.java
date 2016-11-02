@@ -139,6 +139,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     TextView txtDistance;
     @BindView(R.id.currentSpeedResult)
     TextView txtSpeed;
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
 
     ValueAnimator bg;
     AnimationDrawable animDraw;
@@ -153,6 +155,8 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_racer_main);
         ButterKnife.bind(this);
+
+        textViewTitle.setText("Virtual Racer");
         context=this;
         vrRecordDA = new VRRecordDA(this);
         userLocalStore = new UserLocalStore(this);
@@ -175,7 +179,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         }
 
         distanceAmt.setText(dist + " km");
-        durationAmt.setText(hour + "hour " + min + "mins");
+        durationAmt.setText(hour + " hour(s) " + min + " min(s)");
 
         // Initialize Distance UI
         txtDistance.setText("--");
@@ -223,7 +227,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         gpsManager = new GPSManager();
         gpsManager.startListening(getApplicationContext());
         gpsManager.setGPSCallback(this);
-        txtSpeed.setText(getString(R.string.info));
+        txtSpeed.setText(getString(R.string.gps_info));
 
 
     }
@@ -302,7 +306,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                     hour = "0";
                     min = "00";
                 distanceAmt.setText(dist + " km");
-                durationAmt.setText(hour + "hour " + min + "mins");
+                durationAmt.setText(hour + " hour(s) " + min + " min(s)");
             }
         }
     }

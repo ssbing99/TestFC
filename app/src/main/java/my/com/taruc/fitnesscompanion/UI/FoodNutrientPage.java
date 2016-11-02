@@ -16,6 +16,8 @@ public class FoodNutrientPage extends ActionBarActivity {
 
     @BindView(R.id.webViewFood)
     WebView webViewFood;
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class FoodNutrientPage extends ActionBarActivity {
         setContentView(R.layout.activity_food_nutrient_page);
         ButterKnife.bind(this);
 
+        textViewTitle.setText("Food Nutrient");
 
         webViewFood.getSettings().setJavaScriptEnabled(true);
         webViewFood.setWebViewClient(new WebViewClient(){

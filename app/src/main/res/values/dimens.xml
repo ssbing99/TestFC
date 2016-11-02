@@ -8,5 +8,6 @@
     <dimen name="fontSize">15dp</dimen>
     <dimen name="fontSizeLarge">20dp</dimen>
     <dimen name="fontSizeSmall">10dp</dimen>
+    <dimen name="fontSizeMLarge">30dp</dimen>
     <dimen name="fontSizeXLarge">40dp</dimen>
 </resources>

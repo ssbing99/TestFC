@@ -63,8 +63,7 @@
                 android:layout_margin="1dp"
                 android:layout_column="2"
                 android:hint="Enter distance"
-                android:inputType="number"
-                android:background="@drawable/rounded_edittext"/>
+                android:inputType="number" />
             <TextView
                 android:id="@+id/distanceUnitST"
                 android:layout_width="wrap_content"
@@ -103,8 +102,7 @@
                 android:layout_margin="1dp"
                 android:layout_column="2"
                 android:hint="Enter hour"
-                android:inputType="number"
-                android:background="@drawable/rounded_edittext"/>
+                android:inputType="number" />
             <TextView
                 android:id="@+id/timeUnitHourST"
                 android:layout_width="wrap_content"
@@ -138,8 +136,7 @@
                 android:layout_margin="1dp"
                 android:layout_column="2"
                 android:hint="Enter minute"
-                android:inputType="number"
-                android:background="@drawable/rounded_edittext"/>
+                android:inputType="number" />
             <TextView
                 android:id="@+id/timeUnitMinuteST"
                 android:layout_width="wrap_content"

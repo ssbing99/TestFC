@@ -196,17 +196,17 @@
     <string name="targetchallenge">Target / Challenge</string>
     <string name="totaldistance">Total Distance</string>
     <string name="totalduration">Total Duration</string>
-    <string name="speed">Speed: </string>
+    <string name="speedVR">Speed </string>
     <string name="speedunit">km/h</string>
-    <string name="distanceVR">Distance: </string>
+    <string name="distanceVR">Distance </string>
     <string name="distanceunit">km</string>
-    <string name="time">Time: </string>
+    <string name="timeVR">Time </string>
     <string name="startVR">Start</string>
 
     <!-- VirtualRacerSetTarget -->
     <string name="settarget">Set Target</string>
     <string name="distance2">Distance</string>
-    <string name="time2">Time</string>
+    <string name="time2">Time: </string>
     <string name="hour">hour</string>
     <string name="minute">minute(s)</string>
     <string name="accept">Accept</string>

@@ -7,12 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.R;
 
 public class SetChallenge extends Activity {
@@ -22,10 +27,15 @@ public class SetChallenge extends Activity {
     List<String> listDataHeader;
     HashMap<String ,List<String>> listDataChild;
 
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_challenge);
+        ButterKnife.bind(this);
+        textViewTitle.setText("Set Challenge");
 
         //Get ListView
         expListView = (ExpandableListView)findViewById(R.id.lvExpSC);
@@ -162,4 +172,7 @@ public class SetChallenge extends Activity {
         finish();
     }
 
+    public void BackAction(View view) {
+        this.finish();
+    }
 }

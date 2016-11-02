@@ -8,16 +8,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Classes.Set;
 
 public class SetTarget extends ActionBarActivity {
     EditText distance, hour, min;
 
+    @BindView(R.id.textViewTitle)
+    TextView textViewTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_target);
+        ButterKnife.bind(this);
+
+        textViewTitle.setText("Set Target");
     }
 
     public void targetSet(View view){
