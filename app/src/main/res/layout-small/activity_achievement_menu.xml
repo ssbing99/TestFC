@@ -19,7 +19,7 @@
             android:layout_below="@+id/titleBar"
             android:background="@color/MainBackground">
             <TableRow
-                android:background="#03396c"
+                android:background="@color/LG10"
                 android:onClick="GoMedalPage"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
@@ -50,7 +50,7 @@
                     android:paddingLeft="40dp" />
             </TableRow>
             <TableRow
-                android:background="#005b96"
+                android:background="@color/LG9"
                 android:onClick="GoRanking"
                 android:gravity="center"
                 android:paddingTop="3dp"
@@ -77,12 +77,15 @@
                     android:layout_column="2"
                     android:paddingLeft="40dp" />
             </TableRow>
+
             <TableRow
-                android:background="#6497b1"
+                android:background="@color/LG8"
                 android:onClick="GoHistory"
                 android:gravity="center"
                 android:paddingTop="3dp"
-                android:paddingBottom="3dp">
+                android:paddingBottom="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -105,8 +108,9 @@
                     android:layout_column="2"
                     android:paddingLeft="40dp" />
             </TableRow>
+
             <TableRow
-                android:background="#8fa4b3"
+                android:background="@color/LG7"
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"

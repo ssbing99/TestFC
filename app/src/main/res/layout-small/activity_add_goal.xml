@@ -20,7 +20,7 @@
         android:id="@+id/txtCurrentStatus"
         android:text="Current: "
         android:textSize="10dp"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_green_dark"
         android:padding="10dp" />
 
     <EditText

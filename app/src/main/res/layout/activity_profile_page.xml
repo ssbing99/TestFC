@@ -25,7 +25,7 @@
             android:textSize="20dp"
             android:textColor="@color/FontColor"
             android:gravity="center_horizontal"
-            android:background="#7dd2d9"
+            android:background="@color/ButtonColor3"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:textSize="20dp"
             android:textColor="@color/FontColor"
             android:gravity="center_horizontal"
-            android:background="#bdc4c5"
+            android:background="@color/ButtonColor4"
             android:layout_marginLeft="5dp"/>
     </LinearLayout>
 

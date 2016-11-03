@@ -28,7 +28,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:layout_marginTop="20dp"
-            android:background="#B2B2FF">
+            android:background="@color/LG7">
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:layout_marginTop="20dp"
-            android:background="#B2B2FF">
+            android:background="@color/LG7">
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
@@ -453,7 +453,7 @@
             android:orientation="horizontal"
             android:layout_below="@+id/bodyGirthTable"
             android:layout_marginTop="20dp"
-            android:background="#B2B2FF">
+            android:background="@color/LG7">
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="fill_parent"

@@ -9,23 +9,12 @@
     <include layout="@layout/title_bar"
         android:id="@+id/titleBar"/>
 
-    <TextView
-        android:text="@string/setchallenge"
-        android:textAlignment="center"
-        android:textSize="@dimen/fontSizeLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:id="@+id/textViewSC"
-        android:layout_below="@+id/titleBar"/>
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#000000"
         android:id="@+id/horiRuleSC1"
-        android:layout_below="@+id/textViewSC"/>
+        android:layout_below="@+id/titleBar"/>
 
     <TextView
         android:text="@string/category"

@@ -91,7 +91,7 @@
                 android:id="@+id/myToggleButton"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:background="@color/ButtonColor"
+                android:background="@color/ButtonColor3"
                 android:textColor="@color/ButtonFont"
                 android:textSize="@dimen/fontSize"
                 android:layout_alignParentRight="true"

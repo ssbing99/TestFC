@@ -36,7 +36,7 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/lightblue">
+            android:background="@color/LG2">
             <TextView
                 android:id="@+id/textViewBestRecord"
                 android:text="@string/bestrecord"
@@ -207,7 +207,7 @@
             android:layout_below="@id/horiRulePR3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/lightblue"/>
+            android:background="@color/LG2"/>
 
         <View
             android:layout_width="fill_parent"

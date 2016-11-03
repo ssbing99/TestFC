@@ -22,7 +22,7 @@
         android:clickable="true"
         android:layout_marginTop="10dp"
         android:textIsSelectable="false"
-        android:background="#7dd2d9"/>
+        android:background="@color/LG11"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -46,6 +46,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="right"
         android:clickable="true"
-        android:background="@color/ButtonColor" />
+        android:background="@color/ButtonColor3" />
 
 </RelativeLayout>

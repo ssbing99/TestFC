@@ -13,7 +13,7 @@
         android:background="@color/TitleBar"
         android:padding="10dp"
         android:text="@string/app_name"
-        android:textColor="@android:color/secondary_text_dark"
+        android:textColor="@color/white"
         android:textSize="21sp" />
 
     <LinearLayout

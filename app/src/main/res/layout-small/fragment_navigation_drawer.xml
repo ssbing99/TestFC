@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:background="#969696">
+        android:background="@color/LG5">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -50,19 +50,10 @@
         android:background="@color/MainBackground"
         android:textSize="10dp"/>
 
-    <Button
-        android:id="@+id/btnCheckHR"
-        android:layout_below="@id/btnVirtualRacer"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Check Heart Rate"
-        android:background="@color/MainBackground"
-        android:onClick="onButtonCheckHR"
-        android:textSize="10dp" />
 
     <Button
         android:id="@+id/btnSignOut"
-        android:layout_below="@id/btnCheckHR"
+        android:layout_below="@id/btnVirtualRacer"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="Sign Out"

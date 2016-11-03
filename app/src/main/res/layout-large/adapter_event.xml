@@ -59,7 +59,7 @@
             android:layout_alignTop="@+id/textViewDesc"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/ButtonColor"
+            android:background="@color/ButtonColor3"
             android:textColor="@color/ButtonFont" />
 
 

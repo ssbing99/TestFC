@@ -350,7 +350,7 @@
             android:layout_centerHorizontal="true"
             android:layout_column="2"
             android:layout_marginTop="20dp"
-            android:background="@color/ButtonColor"
+            android:background="@color/ButtonColor2"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/register"

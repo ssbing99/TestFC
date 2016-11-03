@@ -43,7 +43,7 @@
         android:layout_below="@+id/chronometerTimer"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@color/ReminderText"
         android:id="@+id/TextViewStage"
         android:layout_margin="10dp" />
 
@@ -276,7 +276,7 @@
         android:id="@+id/ViewStart"
         android:layout_below="@+id/textViewRemark"
         android:layout_centerHorizontal="true"
-        android:background="@color/ButtonColor"
+        android:background="@color/ButtonColor2"
         android:scaleType="fitCenter"
         android:shadowColor="@android:color/transparent"
         style="@android:style/Widget.Holo.Button.Borderless"

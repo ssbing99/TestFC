@@ -11,13 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:background="#969696">
+        android:background="@color/LG5">
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginLeft="225dp"
-            android:layout_marginRight="225dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="25dp"
             android:src="@drawable/logo_drawer"
             android:id="@+id/logoDrawer" />
@@ -28,60 +27,55 @@
         android:layout_below="@id/containerDrawerImage"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="150dp"
-        android:paddingRight="150dp"
-        android:text="Pair IChoice Device"
-        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="34dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Pair Tracker Device"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/ichoice_logo" />
+        android:drawableLeft="@drawable/ic_fitness_tracker"/>
 
     <Button
         android:id="@+id/btnPairHR"
         android:layout_below="@id/btnPairIChoice"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="140dp"
-        android:paddingRight="128dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Pair HeartRate Device"
-        android:textSize="20dp"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/heart_pulse"/>
+        android:drawableLeft="@drawable/ic_heartbeat"/>
 
     <Button
         android:id="@+id/btnVirtualRacer"
-        android:layout_below="@id/btnPairHR"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="145dp"
-        android:paddingRight="210dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="76dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Virtual Racer"
-        android:textSize="20dp"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/virtualracer" />
-
-    <Button
-        android:id="@+id/btnCheckHR"
-        android:layout_below="@id/btnVirtualRacer"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp"
-        android:text="Check Heart Rate"
-        android:background="@color/MainBackground"
-        android:onClick="onButtonCheckHR"
-        android:textSize="20dp" />
+        android:drawableLeft="@drawable/ic_vrunner"
+        android:layout_below="@+id/btnPairHR"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btnSignOut"
-        android:layout_below="@id/btnCheckHR"
+        android:layout_below="@id/btnVirtualRacer"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="145dp"
-        android:paddingRight="265dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="108dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Sign Out"
-        android:textSize="20dp"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/ic_signout"/>
+        android:drawableLeft="@drawable/ic_signout"
+        />
 
 
 

@@ -319,7 +319,7 @@
         android:layout_below="@+id/viewHoriRule5"
         android:layout_centerHorizontal="true"
         android:textSize="15dp"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_green_dark"
         android:id="@+id/TextViewStage"
         android:layout_margin="10dp" />
 
@@ -329,5 +329,6 @@
         android:id="@+id/startButton"
         android:layout_below="@+id/TextViewStage"
         android:text="@string/start"
-        android:onClick="buttonStart"/>
+        android:onClick="buttonStart"
+        android:background="@color/LG2"/>
 </RelativeLayout>

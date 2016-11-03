@@ -25,7 +25,7 @@
             android:text="User Profile"
             android:textSize="25dp"
             android:textColor="@color/FontColor"
-            android:background="#7dd2d9"
+            android:background="@color/ButtonColor3"
             android:gravity="center_horizontal"
             android:layout_marginRight="5dp"
             />
@@ -40,7 +40,7 @@
             android:text="Health Profile"
             android:textSize="25dp"
             android:textColor="@color/FontColor"
-            android:background="#bdc4c5"
+            android:background="@color/ButtonColor4"
             android:gravity="center_horizontal"
             android:layout_marginLeft="5dp"/>
     </LinearLayout>

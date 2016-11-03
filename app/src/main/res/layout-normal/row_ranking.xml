@@ -54,7 +54,7 @@
             android:textColor="@color/ButtonFont"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@color/ButtonColor" />
+            android:background="@color/ButtonColor3" />
     </RelativeLayout>
 
     <View

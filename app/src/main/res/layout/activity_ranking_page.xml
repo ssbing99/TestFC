@@ -21,7 +21,7 @@
         android:onClick="changeType"
         android:clickable="true"
         android:layout_marginTop="20dp"
-        android:background="#7dd2d9"/>
+        android:background="@color/LG11"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textSize="10dp"
         android:id="@+id/textViewDesc"
-        android:background="@color/ButtonColor"
+        android:background="@color/ButtonColor3"
         android:padding="10dp"
         android:textColor="@color/ButtonFont"
         android:textStyle="bold"

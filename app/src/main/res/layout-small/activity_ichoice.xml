@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/MainBackground"
+    android:background="@color/SubBackground"
     android:weightSum="1"
     android:keepScreenOn="true"
     tools:context="my.com.taruc.fitnesscompanion.UI.IChoiceActivity">

@@ -46,8 +46,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     Button btnPairHR;
     @BindView(R.id.btnVirtualRacer)
     Button btnVirtualRacer;
-    @BindView(R.id.btnCheckHR)
-    Button btnCheckHR;
     @BindView(R.id.btnSignOut)
     Button btnSignOut;
 
@@ -85,7 +83,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         btnPairIChoice.setOnClickListener(this);
         btnPairHR.setOnClickListener(this);
         btnVirtualRacer.setOnClickListener(this);
-        btnCheckHR.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
         alarmServiceController = new AlarmServiceController(view.getContext());
         unbinder = ButterKnife.bind(this, view);
@@ -168,10 +165,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 break;
             case R.id.btnVirtualRacer:
                 intent = new Intent(getActivity().getApplicationContext(), VirtualRacerMainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btnCheckHR:
-                intent = new Intent(getActivity().getApplicationContext(), HeartRateMonitor.class);
                 startActivity(intent);
                 break;
             case R.id.btnSignOut:

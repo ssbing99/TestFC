@@ -9,23 +9,26 @@
     <item name="red" type="color">#FF0000</item>
     <item name="black" type="color">#000000</item>
     <item name="orange" type="color">#eb8c00</item>
+    <item name="teal" type="color">#26A69A</item>
 
-    <item name="MainBackground" type="color">#ececec</item>
+    <item name="MainBackground" type="color">#FFFFFF</item>
     <item name="MainBackground2" type="color">#d8f1f3</item>
-    <item name="SubBackground" type="color">#d8f1f3</item>
-    <item name="LoginBackground" type="color">#3e243c</item>
+    <item name="SubBackground" type="color">#F1F8E9</item>
+    <item name="LoginBackground" type="color">#C5E1A5</item>
 
     <item name="FontColor" type="color">#000000</item>
-    <item name="ThemeFontColor" type="color">#032841</item>
-    <item name="LoginFontColor" type="color">#bdc4c5</item>
+    <item name="ThemeFontColor" type="color">#C5E1A5</item>
+    <item name="LoginFontColor" type="color">#33691E</item>
     <item name="GreyFontColor" type="color">#9a9a9a</item>
     <item name="SubFontColor" type="color">#000000</item>
-    <item name="TitleBar" type="color">#032841</item>
+    <item name="TitleBar" type="color">#AED581</item>
 
-    <item name="ButtonColor" type="color">#d8ebff</item>
-    <item name="ButtonColor2" type="color">#2b4372</item>
-    <item name="ButtonColor3" type="color">#7dd2d9</item>
-    <item name="ButtonFont" type="color">#243c3e</item>
+    <item name="ButtonColor" type="color">#F1F8E9</item>
+    <item name="ButtonColor2" type="color">#558B2F</item>
+    <item name="ButtonColor3" type="color">#DCEDC8</item>
+    <item name="ButtonColor4" type="color">#AED581</item>
+
+    <item name="ButtonFont" type="color">#000000</item>
     <item name="HorizontalLine" type="color">#8999A9</item>
     <item name="DisableColor" type="color">#8999A9</item>
 
@@ -35,7 +38,21 @@
     <item name="heartRateHigh" type="color">#FFFF0000</item>
     <item name="heartRateNormal" type="color">#FF669900</item>
 
-    <color name="middarkblue">#2b4372</color>
-    <color name="lightblue">#7dd2d9</color>
+    <item name="LG1" type="color">#F1F8E9</item>
+    <item name="LG2" type="color">#DCEDC8</item>
+    <item name="LG3" type="color">#C5E1A5</item>
+    <item name="LG4" type="color">#AED581</item>
+    <item name="LG5" type="color">#9CCC65</item>
+    <item name="LG6" type="color">#8BC34A</item>
+    <item name="LG7" type="color">#7CB342</item>
+    <item name="LG8" type="color">#689F38</item>
+    <item name="LG9" type="color">#558B2F</item>
+    <item name="LG10" type="color">#33691E</item>
+    <item name="LG11" type="color">#CCFF90</item>
+    <item name="LG12" type="color">#B2FF59</item>
+    <item name="LG13" type="color">#76FF03</item>
+    <item name="LG14" type="color">#64DD17</item>
 
+    <item name="WarnText" type="color">#64DD17</item>
+    <item name="ReminderText" type="color">#009688</item>
 </resources>

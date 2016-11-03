@@ -365,7 +365,7 @@
             android:layout_centerHorizontal="true"
             android:layout_column="2"
             android:layout_marginTop="20dp"
-            android:background="@color/ButtonColor"
+            android:background="@color/ButtonColor2"
             android:text="@string/register"
             android:textColor="@color/ButtonFont"
             android:textSize="@dimen/fontSizeXLarge"

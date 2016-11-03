@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:background="#969696">
+        android:background="@color/LG5">
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -28,53 +28,56 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="Pair IChoice Device"
+        android:paddingRight="34dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Pair Tracker Device"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/ichoice_logo" />
+        android:drawableLeft="@drawable/ic_fitness_tracker"/>
 
     <Button
         android:id="@+id/btnPairHR"
         android:layout_below="@id/btnPairIChoice"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="12dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Pair HeartRate Device"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/heart_pulse" />
+        android:drawableLeft="@drawable/ic_heartbeat"/>
 
     <Button
         android:id="@+id/btnVirtualRacer"
-        android:layout_below="@id/btnPairHR"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="17dp"
-        android:paddingRight="55dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="76dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Virtual Racer"
         android:background="@color/MainBackground"
-        android:drawableLeft="@drawable/virtualracer" />
-
-    <Button
-        android:id="@+id/btnCheckHR"
-        android:layout_below="@id/btnVirtualRacer"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="35dp"
-        android:text="Check Heart Rate"
-        android:background="@color/MainBackground"
-        android:onClick="onButtonCheckHR" />
+        android:drawableLeft="@drawable/ic_vrunner"
+        android:layout_below="@+id/btnPairHR"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btnSignOut"
-        android:layout_below="@id/btnCheckHR"
+        android:layout_below="@id/btnVirtualRacer"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="95dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="108dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Sign Out"
         android:background="@color/MainBackground"
         android:drawableLeft="@drawable/ic_signout"
         />
+
+
 
 
 </RelativeLayout>
