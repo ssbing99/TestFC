@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_set_challenge"
+    android:id="@+id/activity_food_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.VirtualRacer.SetChallenge">
+    tools:context="my.com.taruc.fitnesscompanion.UI.FoodPage">
 
     <include layout="@layout/title_bar"
         android:id="@+id/titleBar"/>
+
+    <TextView
+        android:text="@string/setchallenge"
+        android:textAlignment="center"
+        android:textSize="@dimen/fontSizeLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/textViewSC"
+        android:layout_below="@+id/titleBar"/>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#000000"
         android:id="@+id/horiRuleSC1"
-        android:layout_below="@+id/titleBar"/>
+        android:layout_below="@+id/textViewSC"/>
 
     <TextView
         android:text="@string/category"
@@ -36,13 +47,12 @@
         android:id="@+id/horiRuleSC2"
         android:layout_below="@+id/textViewCategory"/>
 
+
     <ExpandableListView
-        android:id="@+id/lvExpSC"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/horiRuleSC2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-
 </RelativeLayout>
