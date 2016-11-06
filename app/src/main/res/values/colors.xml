@@ -21,7 +21,7 @@
     <item name="LoginFontColor" type="color">#33691E</item>
     <item name="GreyFontColor" type="color">#9a9a9a</item>
     <item name="SubFontColor" type="color">#000000</item>
-    <item name="TitleBar" type="color">#AED581</item>
+    <item name="TitleBar" type="color">#8BC34A</item>
 
     <item name="ButtonColor" type="color">#F1F8E9</item>
     <item name="ButtonColor2" type="color">#558B2F</item>

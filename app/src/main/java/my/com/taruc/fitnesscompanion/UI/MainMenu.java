@@ -467,7 +467,7 @@ public class MainMenu extends ActionBarActivity {
     }
 
     public void GoFoodNutrient(View view){
-        Intent intent = new Intent(this, FoodPage.class); ////////////////////////////////
+        Intent intent = new Intent(this, FoodPage.class);//////
         startActivity(intent);
     }
 

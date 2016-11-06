@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -36,11 +37,15 @@ public class FoodPage extends ActionBarActivity {
     List<String> foodCate;
     HashMap<String, List<String>> foodName;
     private ProgressDialog pDialog;
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_page);
+
+        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        textViewTitle.setText("Food Category");
 
         pDialog = new ProgressDialog(this);
 
@@ -70,6 +75,9 @@ public class FoodPage extends ActionBarActivity {
             Boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
             if (isConnected) {
                 //new downloadCourse().execute(getResources().getString(R.string.get_course_url));
+                if (!pDialog.isShowing()) {
+                    pDialog.show();
+                }
                 downloadFood(this, "http://tarucfit.pe.hu/ServerRequest/FetchAllFood.php");
             } else {
                 Toast.makeText(getApplication(), "Network is NOT available",
@@ -93,12 +101,6 @@ public class FoodPage extends ActionBarActivity {
                 return false;
             }
         });
-/*
-        listViewFood = (ListView) findViewById(R.id.listView);
-
-        foodList = new ArrayList<>();
-
-        */
 
     }
 
@@ -118,9 +120,7 @@ public class FoodPage extends ActionBarActivity {
                             new Response.Listener<JSONArray>() {
                                 @Override
                     public void onResponse(JSONArray response) {
-                        if (!pDialog.isShowing()) {
-                            pDialog.show();
-                        }
+
 
                         List<String> cereal = new ArrayList<String>();
                         List<String> sugar = new ArrayList<String>();
@@ -193,5 +193,8 @@ public class FoodPage extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void BackAction(View view) {
+        this.finish();
+    }
 
 }

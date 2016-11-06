@@ -29,6 +29,7 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:id="@+id/textViewNutient1"
+                android:hint="lalalalalalalalalalala"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"/>
 
@@ -38,6 +39,7 @@
                 android:layout_column="1"
                 android:layout_weight="1"
                 android:id="@+id/textViewAmount1"
+                android:hint="lalalala"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"/>
 
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:id="@+id/textViewUnit1"
+                android:hint="lolol"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"/>
 

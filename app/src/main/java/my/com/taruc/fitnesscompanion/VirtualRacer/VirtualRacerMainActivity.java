@@ -111,7 +111,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     Location location;
     MyLocationListener myLocationListener = new MyLocationListener();
     protected LocationManager locationManager;
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 3000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     double plat, plon, clat, clon, dis, initial_dis = 0, total_dis = 0;
     boolean isGPSEnable = false;
@@ -239,10 +239,12 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             case R.id.btnSetTarget:
                 intent = new Intent(this, SetTarget.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btnSetChallenge:
                 intent = new Intent(this, SetChallenge.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btnViewPastRecord:
                 intent = new Intent(this, ViewPastRecord.class);/////////////record

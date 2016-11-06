@@ -12,6 +12,7 @@ public class Food {
     String amount;
     String unit;
 
+
     public String getNutient() {
         return nutient;
     }
