@@ -265,9 +265,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             if (txt.equalsIgnoreCase("Start")) {
                 txtDistance.setText(String.format("%.2f", total_dis));
                 startCountDownTimer();
-                gpsManager.startListening(getApplicationContext());
-                gpsManager.setGPSCallback(this);
-                txtSpeed.setText(getString(R.string.gps_info));
                 animDraw.start();
                 bg.start();
                 ViewStart.setText(R.string.stop);
@@ -282,6 +279,9 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 TextViewStage.setText(R.string.warmingUp);
                 resetChronometer();
                 myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
+                gpsManager.startListening(getApplicationContext());
+                gpsManager.setGPSCallback(this);
+                //txtSpeed.setText(getString(R.string.gps_info));
                 startTimer();
                 bg.start();
                 animDraw.start();
@@ -301,6 +301,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             } else if (txt.equalsIgnoreCase("Stop")) {
                 /*************Start Cool Down*************/
                 stopExerciseTimer();
+                txtSpeed.setText("--");
 
             } else {
                 /*************End*************/
@@ -842,18 +843,4 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     public void BackAction(View view) {
         this.finish();
      }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        bg.cancel();
-        animDraw.stop();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        bg.start();
-        animDraw.start();
-    }
 }
