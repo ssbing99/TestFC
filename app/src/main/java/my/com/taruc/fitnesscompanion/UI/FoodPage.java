@@ -76,6 +76,7 @@ public class FoodPage extends ActionBarActivity {
             if (isConnected) {
                 //new downloadCourse().execute(getResources().getString(R.string.get_course_url));
                 if (!pDialog.isShowing()) {
+                    pDialog.setMessage("Loading Data....");
                     pDialog.show();
                 }
                 downloadFood(this, "http://tarucfit.pe.hu/ServerRequest/FetchAllFood.php");
