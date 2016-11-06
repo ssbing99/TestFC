@@ -42,6 +42,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
@@ -150,11 +151,14 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     private GPSManager gpsManager = null;
     private double speed = 0.0;
     String dist, hour, min = "00";
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_racer_main);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         textViewTitle.setText("Virtual Racer");
         context=this;
@@ -225,9 +229,9 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         displayDistance(null);
 
         gpsManager = new GPSManager();
-        gpsManager.startListening(getApplicationContext());
-        gpsManager.setGPSCallback(this);
-        txtSpeed.setText(getString(R.string.gps_info));
+        //gpsManager.startListening(getApplicationContext());
+        //gpsManager.setGPSCallback(this);
+        txtSpeed.setText("--");
 
 
     }
@@ -261,6 +265,9 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             if (txt.equalsIgnoreCase("Start")) {
                 txtDistance.setText(String.format("%.2f", total_dis));
                 startCountDownTimer();
+                gpsManager.startListening(getApplicationContext());
+                gpsManager.setGPSCallback(this);
+                txtSpeed.setText(getString(R.string.gps_info));
                 animDraw.start();
                 bg.start();
                 ViewStart.setText(R.string.stop);
@@ -802,6 +809,12 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @Override
     public void onGPSUpdate(Location location)
     {
         location.getLatitude();
@@ -830,4 +843,17 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         this.finish();
      }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bg.cancel();
+        animDraw.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bg.start();
+        animDraw.start();
+    }
 }

@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.Classes.VirtualRacer;
 import my.com.taruc.fitnesscompanion.Database.VRRecordDA;
 import my.com.taruc.fitnesscompanion.R;
@@ -30,6 +31,7 @@ public class ViewPastRecord extends ActionBarActivity {
     VRRecordDA vrRecordDA;
     List<VirtualRacer> list;
     UserLocalStore userLocalStore;
+    private Unbinder unbinder;
 
     @BindView(R.id.textViewTitle)
     TextView textViewTitle;
@@ -39,6 +41,7 @@ public class ViewPastRecord extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_past_record);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         textViewTitle.setText("View Past Records");
 
@@ -77,5 +80,11 @@ public class ViewPastRecord extends ActionBarActivity {
 
     public void BackAction(View view) {
         this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

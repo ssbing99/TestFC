@@ -12,11 +12,13 @@ import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Classes.Set;
 
 public class SetTarget extends ActionBarActivity {
     EditText distance, hour, min;
+    private Unbinder unbinder;
 
     @BindView(R.id.textViewTitle)
     TextView textViewTitle;
@@ -26,6 +28,7 @@ public class SetTarget extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_target);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         textViewTitle.setText("Set Target");
     }
@@ -67,5 +70,11 @@ public class SetTarget extends ActionBarActivity {
 
     public void BackAction(View view) {
         this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

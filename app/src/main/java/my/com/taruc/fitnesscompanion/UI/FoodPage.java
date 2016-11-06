@@ -198,4 +198,8 @@ public class FoodPage extends ActionBarActivity {
         this.finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

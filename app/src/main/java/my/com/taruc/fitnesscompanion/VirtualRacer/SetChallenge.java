@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.R;
 
 public class SetChallenge extends Activity {
@@ -26,6 +27,7 @@ public class SetChallenge extends Activity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String ,List<String>> listDataChild;
+    private Unbinder unbinder;
 
     @BindView(R.id.textViewTitle)
     TextView textViewTitle;
@@ -35,6 +37,7 @@ public class SetChallenge extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_challenge);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         textViewTitle.setText("Set Challenge");
 
         //Get ListView
@@ -174,5 +177,11 @@ public class SetChallenge extends Activity {
 
     public void BackAction(View view) {
         this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

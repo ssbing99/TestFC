@@ -202,6 +202,7 @@
     <string name="distanceunit">km</string>
     <string name="timeVR">Time </string>
     <string name="startVR">Start</string>
+    <string name="gps_info">Waiting for GPS signal...</string>
 
     <!-- VirtualRacerSetTarget -->
     <string name="settarget">Set Target</string>
@@ -214,20 +215,22 @@
 
     <!-- VirtualRacerSetChallenge -->
     <string name="setchallenge">Set Challenge</string>
-    <string name="category">Category</string>
+    <string name="difficulty">Difficulty</string>
     <string name="set">Set</string>
 
     <!-- VirtualRacerViewPastRecord -->
-    <string name="pastrecord">Past Record</string>
+    <string name="pastrecord">Past Records</string>
     <string name="past5record">Last 5 Record</string>
     <string name="bestrecord">Best Record</string>
     <string name="date">Date: </string>
     <string name="avgspeed">Avg Speed: </string>
     <string name="timeused">Time Used: </string>
 
-    <string name="gps_info">Waiting for GPS signal...</string>
-
+    <!-- Chart -->
     <string name="chart">Chart</string>
+
+    <!-- Food Nutrient -->
     <string name="food">Food Nutrient</string>
+    <string name="category">Category</string>
 
 </resources>
