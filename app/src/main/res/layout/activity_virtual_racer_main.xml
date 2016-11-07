@@ -171,25 +171,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/framelayout"
         android:layout_below="@+id/mainAnimation">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
             android:id="@+id/imageVR"
-            android:src="@drawable/background" />
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:src="@drawable/background"/>
         <ImageView
             android:id="@+id/imageVR2"
             android:layout_width="wrap_content"
-            android:layout_height="114dp"
+            android:layout_height="100dp"
             android:src="@drawable/background"
-            android:layout_marginRight="-750dp" />
+            android:layout_marginRight="-715dp"
+            android:layout_marginTop="6dp"
+            />
         <ImageView
             android:id="@+id/stickman"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background="@drawable/run"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/tableLiveDetails" />
+            android:layout_above="@+id/tableLiveDetails"
+            android:layout_marginTop="15dp"/>
     </FrameLayout>
 
     <TableLayout

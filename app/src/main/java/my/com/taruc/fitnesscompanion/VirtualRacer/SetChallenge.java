@@ -176,6 +176,8 @@ public class SetChallenge extends Activity {
     }
 
     public void BackAction(View view) {
+        Intent intent = new Intent(this, VirtualRacerMainActivity.class);
+        startActivity(intent);
         this.finish();
     }
 

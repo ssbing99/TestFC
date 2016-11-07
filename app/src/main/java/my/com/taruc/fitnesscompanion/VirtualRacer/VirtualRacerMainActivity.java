@@ -112,7 +112,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     Location location;
     MyLocationListener myLocationListener = new MyLocationListener();
     protected LocationManager locationManager;
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 3000;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     double plat, plon, clat, clon, dis, initial_dis = 0, total_dis = 0;
     boolean isGPSEnable = false;
@@ -197,7 +197,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         vr2 = (ImageView) findViewById(R.id.imageVR2);
 
         //BACKGROUND
-        bg = ObjectAnimator.ofFloat(1.0f, -0.05f);
+        bg = ObjectAnimator.ofFloat(1.0f, -0.01f);
         bg.setRepeatCount(ValueAnimator.INFINITE);
         bg.setInterpolator(new LinearInterpolator());
         bg.setDuration(10000L);
@@ -225,7 +225,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         if (!isGPSEnable && !isNetworkEnable) {
             showGPSSettingsAlert();
         }
-        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(StepManager.BROADCAST_ACTION_2));
+       registerReceiver(DistanceBroadcastReceiver, new IntentFilter(StepManager.BROADCAST_ACTION_2));
         displayDistance(null);
 
         gpsManager = new GPSManager();
@@ -581,45 +581,12 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
             //Toast.makeText(this, "Uid "+ vrrecord.getUserID(), Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, "Duration "+ vrrecord.getDuration(), Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, "Distance  "+ vrrecord.getDistance(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Date1 CA " + vrrecord.getCreatedAt(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Date 2 get " + getCurrentDateTime(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Date 3 UA " + vrrecord.getUpdatedAt(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Date Created " + vrrecord.getCreatedAt(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
         }
     }
-/*
-    public void addFitnessRecord() {
-        try {
-            String activityPlanID = getActivityPlanID();
-            String currentDateTime = getCurrentDateTime();
-            Double myDistance = getDistance();
-            int myDuration = getDuration();
-            double myCalories = getCalories(myDuration);
-            double averageHeartRate = getAverageHeartRate();
 
-            fitnessRecord = new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(),
-                    userLocalStore.returnUserID() + "",
-                    activityPlanID,
-                    myDuration,
-                    myDistance,
-                    myCalories, 0,
-                    averageHeartRate,
-                    new DateTime(currentDateTime),
-                    new DateTime().getCurrentDateTime());
-            boolean success = myFitnessRecordDA.addFitnessRecord(fitnessRecord);
-            if (success) {
-                serverRequests.storeFitnessRecordInBackground(fitnessRecord);
-                Toast.makeText(this, "Insert fitness record success", Toast.LENGTH_SHORT).show();
-                checkAchievement.checkGoal();
-            } else {
-                Toast.makeText(this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-*/
     public String getCurrentDateTime() {
         //get current Datetime
         Calendar c = Calendar.getInstance();
@@ -841,6 +808,48 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     }
 
     public void BackAction(View view) {
-        this.finish();
+        warningMessage();
      }
+
+    public void warningMessage() {
+        String message = "Are you sure you wan exit without stop timer? Fitness record will lose after exit.";
+        if (isChallenge) {
+            message = "Are you sure you wan exit without stop timer? Your challenge will lose after exit.";
+        }
+        if (timerRunning && isStartedExerise) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Exit without stop")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                            if(isChallenge) {
+                                countDownTimer.cancel();
+                            }
+                            //stop background service
+                            if(isChoice) {
+                                stopService(intentDistance);
+                            }
+                            closeBackgroundService();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create();
+            dialog.show();
+        } else {
+            finish();
+            closeBackgroundService();
+        }
+    }
+
+    private void closeBackgroundService(){
+        //close location tracking
+        locationManager.removeUpdates(myLocationListener);
+
+        //close alarm sound service
+        if (alarmSound.isPlay()) {
+            alarmSound.stop();
+        }
+    }
 }

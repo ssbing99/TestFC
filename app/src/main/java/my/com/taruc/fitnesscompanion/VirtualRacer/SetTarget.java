@@ -69,6 +69,8 @@ public class SetTarget extends ActionBarActivity {
     }
 
     public void BackAction(View view) {
+        Intent intent = new Intent(this, VirtualRacerMainActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
