@@ -220,6 +220,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 myLocationListener
         );
+
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!isGPSEnable && !isNetworkEnable) {
@@ -232,8 +233,6 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
         //gpsManager.startListening(getApplicationContext());
         //gpsManager.setGPSCallback(this);
         txtSpeed.setText("--");
-
-
     }
 
     @Override

@@ -21,6 +21,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.Adapter.EventAdapter;
 import my.com.taruc.fitnesscompanion.Classes.Event;
 import my.com.taruc.fitnesscompanion.Classes.TaskCanceler;
@@ -51,6 +52,7 @@ public class EventPage extends ActionBarActivity {
     private Timer timer = new Timer();
     private ArrayList<Event> eventArrayListFromServer;
     private RetrieveRequest mRetrieveRequest;
+    private Unbinder unbinder;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class EventPage extends ActionBarActivity {
         setContentView(R.layout.activity_event_page);
         context = this;
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         textViewTitle.setText(R.string.eventTitle);
 
         mConnectionDetector = new ConnectionDetector(this);
@@ -107,5 +110,6 @@ public class EventPage extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
     }
 }
