@@ -35,6 +35,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
@@ -75,6 +76,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     Button btnUnlink;
     @BindView(R.id.tv_datetimelabel)
     TextView lblDateTime;
+
+    private Unbinder unbinder;
 
     // 默认值
     private int gender;
@@ -121,6 +124,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ichoice);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
@@ -337,6 +341,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
         }
+        unbinder.unbind();
     }
 
     public class Receiver extends BroadcastReceiver {

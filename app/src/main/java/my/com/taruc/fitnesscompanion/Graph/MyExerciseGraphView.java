@@ -32,6 +32,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;

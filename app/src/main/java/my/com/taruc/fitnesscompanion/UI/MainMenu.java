@@ -26,14 +26,10 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;

@@ -33,6 +33,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
@@ -136,11 +137,14 @@ public class ExercisePage extends ActionBarActivity {
     @BindView(R.id.textViewMaxHR)
     TextView textViewMaxHR;
 
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_menu);
         ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         context = this;
         myFitnessRecordDA = new FitnessRecordDA(this);
         myActivityPlanDA = new ActivityPlanDA(this);
@@ -286,6 +290,7 @@ public class ExercisePage extends ActionBarActivity {
             unbindService(heartRateSensor.getmServiceConnection());
             heartRateSensor.setmBluetoothLeService(null);
         }
+        unbinder.unbind();
     }
 
     @Override
