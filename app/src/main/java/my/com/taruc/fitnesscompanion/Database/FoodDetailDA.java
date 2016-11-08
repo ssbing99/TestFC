@@ -45,7 +45,7 @@ int count =0;
         ArrayList<Food> records = new ArrayList<Food>();
         String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+columnFood+" = '"+food+"'";
 
-        Toast.makeText(context, "Food : "+food,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, "Food : "+food,Toast.LENGTH_SHORT).show();
 
         //try {
            // Cursor cursor = db.query(TABLE_NAME, allColumn, null, null, null, null, null);
@@ -65,7 +65,7 @@ int count =0;
                     records.add(food1);
                     cursor.moveToNext();
                 }
-                Toast.makeText(context, "Record count: " + count, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Record count: " + count, Toast.LENGTH_SHORT).show();
                 cursor.close();
             }
         //} catch (SQLException e) {

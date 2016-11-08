@@ -79,7 +79,6 @@ public class FoodDetailPage extends ActionBarActivity {
                 String url = "http://tarucfit.pe.hu/ServerRequest/FetchFoodDetail.php?name="+name;
                // String url = String.format("http://tarucfit.pe.hu/ServerRequest/FetchFoodDetail.php?name=%1$s", name);
                //downloadFoodDetail(this, url);
-                Toast.makeText(this,"URL: " +name,Toast.LENGTH_LONG).show();
                 foodDetail = foodDetailDA.getAllDetail(name);
                 loadDetail();
             } else {
@@ -115,7 +114,6 @@ public class FoodDetailPage extends ActionBarActivity {
                             foodDetail.clear();
                             Log.d("Array", "Length: " + response.length());
 
-                                Toast.makeText(getApplication(), "Length: " + response.length(), Toast.LENGTH_LONG).show();
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject courseResponse = (JSONObject) response.get(i);
                                     String id = courseResponse.getString("id");
@@ -158,7 +156,6 @@ public class FoodDetailPage extends ActionBarActivity {
     private void loadDetail() {
         final FoodAdapter adapter = new FoodAdapter(this, foodDetail);
         listViewDetail.setAdapter(adapter);
-        Toast.makeText(getApplicationContext(), "Count :" + foodDetail.size(), Toast.LENGTH_SHORT).show();
     }
 
     public void BackAction(View view) {

@@ -112,7 +112,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     Location location;
     MyLocationListener myLocationListener = new MyLocationListener();
     protected LocationManager locationManager;
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 3000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     double plat, plon, clat, clon, dis, initial_dis = 0, total_dis = 0;
     boolean isGPSEnable = false;
@@ -663,7 +663,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                     txtDistance.setText(String.format("%.2f", total_dis));
                 } else {
                     //set initial Distance
-                    initial_dis = dis;
+                    initial_dis = 0;
                 }
                 Log.i("Virtual Racer-Location", "Display distance " + dis + " " + isStartedExerise);
             }
@@ -736,7 +736,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
     public void showGPSSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("GPS is OFF");
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setMessage("GPS is not enabled. You must enabled the GPS service to function.");
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -744,12 +744,7 @@ public class VirtualRacerMainActivity extends Activity implements View.OnClickLi
                 startActivity(intent);
             }
         });
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+
         alertDialog.show();
     }
 
